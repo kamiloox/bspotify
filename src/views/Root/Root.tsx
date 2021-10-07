@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ProtectedRoute from '../../components/organisms/ProtectedRoute/ProtectedRoute';
 import ThemeProvider from '../../theme/ThemeProvider';
 import App from '../App/App';
 import Home from '../Home/Home';
@@ -11,9 +12,9 @@ const Root = () => (
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/app">
+        <ProtectedRoute path="/app" redirectTo="/">
           <App />
-        </Route>
+        </ProtectedRoute>
         <Route path="*">
           <NotFound404 />
         </Route>
