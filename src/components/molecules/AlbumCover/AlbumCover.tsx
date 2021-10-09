@@ -1,13 +1,15 @@
+import React from 'react';
 import Typography from '../../atoms/Typography/Typography';
-import { Wrapper, Image, SongInfoWrapper } from './styles';
+import { Wrapper, Image, SongInfoWrapper, CenteredContent } from './styles';
 
 interface AlbumCoverProps {
   title: string;
   artist: string;
   imgSrc: string;
+  children?: React.ReactChild;
 }
 
-const AlbumCover = ({ artist, title, imgSrc }: AlbumCoverProps) => (
+const AlbumCover = ({ artist, title, imgSrc, children }: AlbumCoverProps) => (
   <Wrapper>
     <Image src={imgSrc} alt={`One of ${artist} album`} />
     <SongInfoWrapper>
@@ -18,6 +20,7 @@ const AlbumCover = ({ artist, title, imgSrc }: AlbumCoverProps) => (
         {artist}
       </Typography>
     </SongInfoWrapper>
+    {children && <CenteredContent>{children}</CenteredContent>}
   </Wrapper>
 );
 
