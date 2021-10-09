@@ -9,8 +9,8 @@ interface AudioWaveProps {
 }
 
 const AudioWave = ({ maxWidth, audioRef }: AudioWaveProps) => {
-  const { progress, changeCurrentTime } = useAudioWave(audioRef);
-  const waveHeights = useMemo(
+  const { progress, handleKeyDown, handleMove, handleRelease, handleClick } = useAudioWave(audioRef);
+  const columnHeights = useMemo(
     () =>
       [...Array(maxWidth / columnWidth)].map(() =>
         randomInteger(1, 10) > 7 ? randomInteger(30, 40) : randomInteger(15, 30)
@@ -19,8 +19,21 @@ const AudioWave = ({ maxWidth, audioRef }: AudioWaveProps) => {
   );
 
   return (
-    <Wrapper onPointerDown={changeCurrentTime}>
-      {waveHeights.map((height, index) => {
+    <Wrapper
+      onPointerDown={handleClick}
+      onTouchMove={handleMove}
+      onPointerMove={handleMove}
+      onTouchEnd={handleRelease}
+      onPointerUp={handleRelease}
+      onKeyDown={handleKeyDown}
+      role="slider"
+      aria-label="Audio seekbar"
+      aria-valuemin={0}
+      aria-valuemax={Math.floor(audioRef.current?.duration || 0)}
+      aria-valuenow={Math.floor(audioRef.current?.currentTime || 0)}
+      tabIndex={0}
+    >
+      {columnHeights.map((height, index) => {
         const isHighlighted = progress * maxWidth > columnWidth * index;
         return <WaveColumn style={{ height }} key={index} isHighlighted={isHighlighted} />;
       })}
