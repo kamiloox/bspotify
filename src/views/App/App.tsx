@@ -3,6 +3,7 @@ import Button from '../../components/atoms/Button/Button';
 import { BACKEND_URL } from '../../utils/constants/constants';
 import HamburgerButton from '../../components/molecules/HamburgerButton/HamburgerButton';
 import { useState } from 'react';
+import ProfilePicture from '../../components/atoms/ProfilePicture/ProfilePicture';
 
 const App = () => {
   const [isActive, setIsActive] = useState(false);
@@ -15,6 +16,9 @@ const App = () => {
       </Button>
       <div>
         <HamburgerButton color="black" isActive={isActive} onClick={() => setIsActive(!isActive)} />
+      </div>
+      <div>
+        <ProfilePicture />
       </div>
       <MusicPlayer
         artist="Bob Marley"
