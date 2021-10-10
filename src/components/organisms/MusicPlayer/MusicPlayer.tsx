@@ -1,18 +1,7 @@
-import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
-import Button from '../../atoms/Button/Button';
+import { Wrapper, RotatedIconButton, PauseFill, PlayFill } from './styles';
 import AlbumCover from '../../molecules/AlbumCover/AlbumCover';
 import AudioWave from '../../molecules/AudioWave/AudioWave';
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  & > *:last-child {
-    margin-top: 20px;
-  }
-`;
 
 interface MusicPlayerProps {
   audioSrc: string;
@@ -41,9 +30,9 @@ const MusicPlayer = ({ title, artist, audioSrc, imgSrc }: MusicPlayerProps) => {
     <Wrapper>
       <audio ref={audioRef} src={audioSrc} />
       <AlbumCover artist={artist} title={title} imgSrc={imgSrc}>
-        <Button color={isPlaying ? 'primary' : 'success'} onClick={handleClick}>
-          {isPlaying ? 'pause' : 'play'}
-        </Button>
+        <RotatedIconButton onClick={handleClick} isRotating={isPlaying}>
+          {isPlaying ? <PauseFill size={42} /> : <PlayFill size={42} />}
+        </RotatedIconButton>
       </AlbumCover>
       <AudioWave maxWidth={280} audioRef={audioRef} />
     </Wrapper>
