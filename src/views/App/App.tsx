@@ -1,13 +1,8 @@
 import MusicPlayer from '../../components/organisms/MusicPlayer/MusicPlayer';
 import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
-import Button from '../../components/atoms/Button/Button';
-import { BACKEND_URL } from '../../utils/constants/constants';
 
 const App = () => (
   <MainTemplate>
-    <Button as="a" href={`${BACKEND_URL}/auth/logout`}>
-      Logout
-    </Button>
     <MusicPlayer
       artist="Bob Marley"
       title="No women, no cry!"

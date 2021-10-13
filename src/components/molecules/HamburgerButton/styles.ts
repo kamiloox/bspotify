@@ -6,6 +6,7 @@ export interface WrapperProps {
 }
 
 export const Wrapper = styled.button<WrapperProps>`
+  position: relative;
   background-color: transparent;
   height: 23px;
   width: 35px;
@@ -15,6 +16,7 @@ export const Wrapper = styled.button<WrapperProps>`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+  z-index: 20;
 
   & > * {
     background-color: ${({ theme, color = 'white' }) => theme.color[color]};

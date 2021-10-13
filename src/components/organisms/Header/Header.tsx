@@ -6,6 +6,7 @@ import { AUTHENTICATED_ROUTES } from '../../../utils/constants/constants';
 import Typography from '../../atoms/Typography/Typography';
 import HamburgerButton from '../../molecules/HamburgerButton/HamburgerButton';
 import ProfilePicture from '../../atoms/ProfilePicture/ProfilePicture';
+import Navigation from '../../molecules/Navigation/Navigation';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.color.black};
@@ -34,6 +35,7 @@ const Header = () => {
     <Wrapper>
       {ProfilePictureOrLogo}
       <HamburgerButton onClick={() => setIsMenuActive(!isMenuActive)} isActive={isMenuActive} />
+      <Navigation isVisible={isMenuActive} />
     </Wrapper>
   );
 };
