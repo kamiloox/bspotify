@@ -1,7 +1,9 @@
+import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
+
 const NotFound404 = () => (
-  <div>
+  <MainTemplate>
     <h1>Not Found 404</h1>
-  </div>
+  </MainTemplate>
 );
 
 export default NotFound404;
