@@ -1,6 +1,6 @@
 import { ReactChild } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth/useAuth';
+import { useUserContext } from '../../../contexts/UserContext/UserContext';
 import Typography from '../../atoms/Typography/Typography';
 
 interface ProtectedRouteProps extends RouteProps {
@@ -9,7 +9,7 @@ interface ProtectedRouteProps extends RouteProps {
 }
 
 const ProtectedRoute = ({ redirectTo, children, ...rest }: ProtectedRouteProps) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useUserContext();
 
   if (isLoading) return <Typography>Loading...</Typography>;
 
