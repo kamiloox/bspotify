@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-import { BACKEND_URL } from '../../../utils/constants/constants';
+import { useHistory } from 'react-router-dom';
+import { useUserContext } from '../../../contexts/UserContext/UserContext';
 import Button from '../../atoms/Button/Button';
 
 interface WrapperProps {
@@ -31,12 +32,20 @@ const Wrapper = styled.nav<WrapperProps>`
 
 interface NavigationProps extends WrapperProps {}
 
-const Navigation = ({ isVisible }: NavigationProps) => (
-  <Wrapper isVisible={isVisible}>
-    <Button as="a" href={`${BACKEND_URL}/auth/logout`}>
-      Logout
-    </Button>
-  </Wrapper>
-);
+const Navigation = ({ isVisible }: NavigationProps) => {
+  const { isAuthenticated, logoutUser } = useUserContext();
+  const history = useHistory();
+
+  const handleLogin = async () => {
+    logoutUser();
+    history.push('/');
+  };
+
+  return (
+    <Wrapper isVisible={isVisible}>
+      {isAuthenticated && <Button onClick={handleLogin}>Logout</Button>}
+    </Wrapper>
+  );
+};
 
 export default Navigation;

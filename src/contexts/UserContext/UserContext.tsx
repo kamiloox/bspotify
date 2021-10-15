@@ -9,6 +9,7 @@ const getAuthCookie = () => Cookies.get('is_authenticated') === 'true';
 
 interface UserContextState extends AuthState {
   user: PrivateUserObject | undefined;
+  logoutUser: () => Promise<void>;
 }
 
 const UserContext = createContext({} as UserContextState);
@@ -44,7 +45,16 @@ const UserProvider = ({ children }: UserProviderProps) => {
     else tryRefreshAccessToken();
   }, [refetchAndDispatch, tryRefreshAccessToken]);
 
-  return <UserContext.Provider value={{ user: data, ...authState }}>{children}</UserContext.Provider>;
+  const value = {
+    user: data,
+    logoutUser: async () => {
+      await fetchBackend('/auth/logout');
+      dispatch({ type: 'AUTH_LOGOUT' });
+    },
+    ...authState,
+  };
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export const useUserContext = () => useContext(UserContext);

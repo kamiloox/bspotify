@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router';
+import { useLocation, Link } from 'react-router-dom';
 import { hexToRGB } from '../../../utils/helpers/helpers';
 import { AUTHENTICATED_ROUTES } from '../../../utils/constants/constants';
 import Typography from '../../atoms/Typography/Typography';
@@ -26,9 +26,11 @@ const Header = () => {
   const ProfilePictureOrLogo = AUTHENTICATED_ROUTES.includes(location.pathname) ? (
     <ProfilePicture />
   ) : (
-    <Typography as="a" href="/" weight="bold" color="white" underlined italic>
-      bspotify.
-    </Typography>
+    <Link to="/">
+      <Typography weight="bold" color="white" underlined italic>
+        bspotify.
+      </Typography>
+    </Link>
   );
 
   return (
