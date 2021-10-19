@@ -1,21 +1,35 @@
-import MusicPlayer from '../../components/organisms/MusicPlayer/MusicPlayer';
-import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
-import { useUserContext } from '../../contexts/UserContext/UserContext';
+import { HeroWrapper, HeroTextWrapper, ContentWrapper, OptionsWrapper, Image } from './styles';
+import manInCityImage from '../../assets/manTravelsCity.png';
+import Header from '../../components/organisms/Header/Header';
+import Typography from '../../components/atoms/Typography/Typography';
+import LinkOption from '../../components/molecules/LinkOption/LinkOption';
 
-const App = () => {
-  const { user } = useUserContext();
-
-  return (
-    <MainTemplate>
-      {user?.display_name ? `Hello ${user.display_name}` : null}
-      <MusicPlayer
-        artist="Bob Marley"
-        title="No women, no cry!"
-        imgSrc="https://i.scdn.co/image/ab67616d0000b27384397a448d59d383bb0a2e9b"
-        audioSrc="https://p.scdn.co/mp3-preview/d283f120c773725e74fc2582099dd6833b237a83?cid=936b203f34664fd9a8f3f63d59b966dc"
-      />
-    </MainTemplate>
-  );
-};
+const App = () => (
+  <>
+    <Header rounded={false} />
+    <HeroWrapper>
+      <Image src={manInCityImage} />
+      <HeroTextWrapper>
+        <Typography weight="bold" color="white">
+          Let's create
+        </Typography>
+        <Typography as="span" weight="bold" color="white">
+          a playlist{' '}
+        </Typography>
+        <Typography as="span" color="white" underlined italic>
+          together
+        </Typography>
+      </HeroTextWrapper>
+    </HeroWrapper>
+    <ContentWrapper>
+      <Typography>Select one of available options</Typography>
+      <OptionsWrapper>
+        <LinkOption to="/">Based on your top artists and tracks</LinkOption>
+        <LinkOption to="/">Choose genre or artist you're intereseted in</LinkOption>
+        <LinkOption to="/">Update your existing playlist</LinkOption>
+      </OptionsWrapper>
+    </ContentWrapper>
+  </>
+);
 
 export default App;

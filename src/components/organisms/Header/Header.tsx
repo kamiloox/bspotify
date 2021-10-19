@@ -8,7 +8,11 @@ import HamburgerButton from '../../molecules/HamburgerButton/HamburgerButton';
 import ProfilePicture from '../../atoms/ProfilePicture/ProfilePicture';
 import Navigation from '../../molecules/Navigation/Navigation';
 
-const Wrapper = styled.div`
+interface WrapperProps {
+  rounded?: boolean;
+}
+
+const Wrapper = styled.div<WrapperProps>`
   background-color: ${({ theme }) => theme.color.black};
   box-shadow: 0px 4px 4px ${({ theme }) => hexToRGB(theme.color.black, 0.25)};
   display: flex;
@@ -16,10 +20,12 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 20px 30px;
   min-height: 75px;
-  border-radius: 0 0 25px 25px;
+  border-radius: ${({ rounded = true }) => (rounded ? ' 0 0 25px 25px' : '0')};
 `;
 
-const Header = () => {
+interface HeaderProps extends WrapperProps {}
+
+const Header = ({ rounded }: HeaderProps) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const location = useLocation();
 
@@ -34,7 +40,7 @@ const Header = () => {
   );
 
   return (
-    <Wrapper>
+    <Wrapper rounded={rounded}>
       {ProfilePictureOrLogo}
       <HamburgerButton onClick={() => setIsMenuActive(!isMenuActive)} isActive={isMenuActive} />
       <Navigation isVisible={isMenuActive} />
