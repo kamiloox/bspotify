@@ -4,11 +4,11 @@ import { useUserContext } from '../../../contexts/UserContext/UserContext';
 import Typography from '../../atoms/Typography/Typography';
 
 interface ProtectedRouteProps extends RouteProps {
-  redirectTo: string;
+  redirectTo?: string;
   children: ReactChild;
 }
 
-const ProtectedRoute = ({ redirectTo, children, ...rest }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ redirectTo = '', children, ...rest }: ProtectedRouteProps) => {
   const { isAuthenticated, isLoading } = useUserContext();
 
   if (isLoading) return <Typography>Loading...</Typography>;

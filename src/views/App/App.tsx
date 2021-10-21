@@ -3,6 +3,7 @@ import manInCityImage from '../../assets/manTravelsCity.png';
 import Header from '../../components/organisms/Header/Header';
 import Typography from '../../components/atoms/Typography/Typography';
 import LinkOption from '../../components/molecules/LinkOption/LinkOption';
+import routes from '../../utils/routes/routes';
 
 const App = () => (
   <>
@@ -24,9 +25,11 @@ const App = () => (
     <ContentWrapper>
       <Typography>Select one of available options</Typography>
       <OptionsWrapper>
-        <LinkOption to="/">Based on your top artists and tracks</LinkOption>
-        <LinkOption to="/">Choose genre or artist you're intereseted in</LinkOption>
-        <LinkOption to="/">Update your existing playlist</LinkOption>
+        <LinkOption to={routes.hintsTop.path}>Based on your top artists and tracks</LinkOption>
+        <LinkOption to={routes.hintsSearch.path}>
+          Choose genre or artist you're intereseted in
+        </LinkOption>
+        <LinkOption to={routes.hintsExisting.path}>Update your existing playlist</LinkOption>
       </OptionsWrapper>
     </ContentWrapper>
   </>

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, Link } from 'react-router-dom';
-import { hexToRGB } from '../../../utils/helpers/helpers';
-import { AUTHENTICATED_ROUTES } from '../../../utils/constants/constants';
+import { hexToRGB, isRoutePublic } from '../../../utils/helpers/helpers';
 import Typography from '../../atoms/Typography/Typography';
 import HamburgerButton from '../../molecules/HamburgerButton/HamburgerButton';
 import ProfilePicture from '../../atoms/ProfilePicture/ProfilePicture';
@@ -27,16 +26,16 @@ interface HeaderProps extends WrapperProps {}
 
 const Header = ({ rounded }: HeaderProps) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  const ProfilePictureOrLogo = AUTHENTICATED_ROUTES.includes(location.pathname) ? (
-    <ProfilePicture />
-  ) : (
+  const ProfilePictureOrLogo = isRoutePublic(pathname) ? (
     <Link to="/">
       <Typography weight="bold" color="white" underlined italic>
         bspotify.
       </Typography>
     </Link>
+  ) : (
+    <ProfilePicture />
   );
 
   return (

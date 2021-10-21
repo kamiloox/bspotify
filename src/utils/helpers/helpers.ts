@@ -1,4 +1,5 @@
 import { BACKEND_URL } from '../constants/constants';
+import routes from '../routes/routes';
 
 export const fetchBackend = (url: string, init?: RequestInit) =>
   fetch(`${BACKEND_URL}${url}`, {
@@ -19,4 +20,13 @@ export const hexToRGB = (hex: string, alpha: string | number) => {
 
 export const randomInteger = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const isRoutePublic = (path: string): boolean => {
+  const key = Object.keys(path).find((key) => {
+    if (routes[key as keyof typeof routes]?.path === path) return true;
+    return false;
+  });
+  if (routes[key as keyof typeof routes]?.public) return true;
+  else return false;
 };
