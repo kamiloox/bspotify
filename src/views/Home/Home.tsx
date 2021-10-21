@@ -4,6 +4,7 @@ import { BACKEND_URL } from '../../utils/constants/constants';
 import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 import { useUserContext } from '../../contexts/UserContext/UserContext';
 import { useHistory } from 'react-router-dom';
+import TextField from '../../components/molecules/TextField/TextField';
 
 const Home = () => {
   const { isAuthenticated } = useUserContext();
@@ -22,6 +23,7 @@ const Home = () => {
       <Typography weight="bold" size="xl" color="error">
         Hello home
       </Typography>
+      <TextField label="search track" id="track" />
     </MainTemplate>
   );
 };
