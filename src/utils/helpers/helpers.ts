@@ -23,10 +23,10 @@ export const randomInteger = (min: number, max: number) => {
 };
 
 export const isRoutePublic = (path: string): boolean => {
-  const key = Object.keys(path).find((key) => {
+  const key = Object.keys(routes).find((key) => {
     if (routes[key as keyof typeof routes]?.path === path) return true;
     return false;
   });
-  if (routes[key as keyof typeof routes]?.public) return true;
-  else return false;
+  if (routes[key as keyof typeof routes]?.public || !routes[key as keyof typeof routes]) return true;
+  return false;
 };

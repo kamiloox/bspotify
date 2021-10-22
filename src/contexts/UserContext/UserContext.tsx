@@ -1,14 +1,14 @@
 import { createContext, useCallback, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useQuery } from 'react-query';
-import { PrivateUserObject } from '../../utils/types/UserProfile';
+import { CurrentUserProfile } from '../../utils/types/CurrentUserProfile';
 import { fetchBackend } from '../../utils/helpers/helpers';
 import { useAuthReducer, AuthState } from './authReducer';
 
 const getAuthCookie = () => Cookies.get('is_authenticated') === 'true';
 
 interface UserContextState extends AuthState {
-  user: PrivateUserObject | undefined;
+  user: CurrentUserProfile | undefined;
   logoutUser: () => Promise<void>;
 }
 
@@ -20,7 +20,7 @@ interface UserProviderProps {
 
 const UserProvider = ({ children }: UserProviderProps) => {
   const [authState, dispatch] = useAuthReducer();
-  const { data, refetch } = useQuery<PrivateUserObject>('me', () => fetchBackend('/api/me'), {
+  const { data, refetch } = useQuery<CurrentUserProfile>('me', () => fetchBackend('/api/me'), {
     refetchOnWindowFocus: false,
     enabled: false,
   });

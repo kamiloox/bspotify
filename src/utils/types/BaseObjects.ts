@@ -1,21 +1,31 @@
-// Reference: https://developer.spotify.com/documentation/web-api/reference/#objects-index
-
-export interface ExternalUrlObject {
+export interface ExternalUrls {
   spotify: string;
 }
 
-export interface FollowersObject {
+export interface Followers {
   href: null;
   total: number;
 }
 
-export interface ImageObject {
+export interface Image {
   height: number;
   width: number;
   url: string;
 }
 
-export interface ExplicitContentSettingsObject {
+export interface ExplicitContent {
   filter_enabled: boolean;
   filter_locked: boolean;
 }
+
+export interface Restricions {
+  reason: 'market' | 'product' | 'explicit';
+}
+
+export interface ExternalIds {
+  isrc: string;
+  ean: string;
+  upc: string;
+}
+
+export type Genre = string;
