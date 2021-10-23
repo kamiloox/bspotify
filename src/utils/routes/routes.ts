@@ -11,19 +11,19 @@ const routes = {
     path: '/app',
     public: false,
   },
-  // Select hints from top user artists, tracks and genres
-  hintsTop: {
-    path: '/hints/top',
+  // Select entities from top user artists, tracks and genres
+  entitiesTop: {
+    path: '/entities/top',
     public: false,
   },
-  // Search hints for new playlist
-  hintsSearch: {
-    path: '/hints/search',
+  // Search entities for new playlist
+  entitiesSearch: {
+    path: '/entities/search',
     public: false,
   },
-  // Select Hints for existing playlist
-  hintsExisting: {
-    path: '/hints/existing',
+  // Select entities for existing playlist
+  entitiesExisting: {
+    path: '/entities/existing',
     public: false,
   },
 };

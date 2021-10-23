@@ -7,7 +7,7 @@ import ThemeProvider from '../../theme/ThemeProvider';
 import App from '../App/App';
 import Home from '../Home/Home';
 import NotFound404 from '../NotFound404/NotFound404';
-import SelectHints from '../SelectHints/SelectHints';
+import EntitiesSelect from '../EntitiesSelect/EntitiesSelect';
 
 const queryClient = new QueryClient();
 
@@ -24,9 +24,9 @@ const Root = () => (
               <App />
             </ProtectedRoute>
             <ProtectedRoute
-              path={[routes.hintsTop.path, routes.hintsSearch.path, routes.hintsExisting.path]}
+              path={[routes.entitiesTop.path, routes.entitiesSearch.path, routes.entitiesExisting.path]}
             >
-              <SelectHints />
+              <EntitiesSelect />
             </ProtectedRoute>
             <Route path="*">
               <NotFound404 />
