@@ -1,12 +1,12 @@
 // Reference: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
 
 import { Album } from './Album';
-import { Arist } from './Artist';
+import { Artist } from './Artist';
 import { ExternalIds, ExternalUrls, Restricions } from './BaseObjects';
 
 export interface Track {
   album: Album;
-  artists: Arist[];
+  artists: Artist[];
   availableMarkets: string[];
   discNumber: number;
   durationMs: number;

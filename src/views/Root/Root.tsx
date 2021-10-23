@@ -7,7 +7,7 @@ import ThemeProvider from '../../theme/ThemeProvider';
 import App from '../App/App';
 import Home from '../Home/Home';
 import NotFound404 from '../NotFound404/NotFound404';
-import EntitiesSelect from '../EntitiesSelect/EntitiesSelect';
+import EntitiesTop from '../EntitiesTop/EntitiesTop';
 
 const queryClient = new QueryClient();
 
@@ -23,10 +23,11 @@ const Root = () => (
             <ProtectedRoute path={routes.app.path}>
               <App />
             </ProtectedRoute>
-            <ProtectedRoute
-              path={[routes.entitiesTop.path, routes.entitiesSearch.path, routes.entitiesExisting.path]}
-            >
-              <EntitiesSelect />
+            <ProtectedRoute path={routes.entitiesTop.path}>
+              <EntitiesTop />
+            </ProtectedRoute>
+            <ProtectedRoute path={[routes.entitiesExisting.path, routes.entitiesSearch.path]}>
+              <p>Feature currently unavailable</p>
             </ProtectedRoute>
             <Route path="*">
               <NotFound404 />

@@ -1,6 +1,6 @@
 // Reference: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-album
 
-import { Arist } from './Artist';
+import { Artist } from './Artist';
 import { ExternalUrls, Image, Restricions } from './BaseObjects';
 import { Track } from './Track';
 
@@ -18,6 +18,6 @@ export interface Album {
   restrictions: Restricions;
   type: 'album';
   uri: string;
-  artists: Arist[];
+  artists: Artist[];
   tracks: Track[];
 }

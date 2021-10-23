@@ -2,7 +2,7 @@
 
 import { ExternalUrls, Followers, Genre, Image } from './BaseObjects';
 
-export interface Arist {
+export interface Artist {
   externalUrls: ExternalUrls;
   followers: Followers;
   genres: Genre[];
