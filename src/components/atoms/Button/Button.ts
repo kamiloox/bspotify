@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface ButtonProps {
   color?: 'primary' | 'error' | 'success';
+  fullWidth?: boolean;
 }
 
 const Button = styled.button<ButtonProps>`
@@ -9,6 +10,7 @@ const Button = styled.button<ButtonProps>`
   color: ${({ theme }) => theme.color.black};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   font-size: ${({ theme }) => theme.fontSize.m};
+  width: ${({ fullWidth = false }) => (fullWidth ? '100%' : 'auto')};
   padding: 5px 12px;
   border-radius: 2px;
   display: inline-block;

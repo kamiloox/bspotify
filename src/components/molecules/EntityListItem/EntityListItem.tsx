@@ -36,15 +36,22 @@ const Image = styled.img`
 `;
 
 interface EntityListItemProps {
+  id: string;
   primaryContent: string;
   secondaryContent?: string;
   imgSrc?: string;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick?: (e: React.MouseEvent, id: string) => void;
 }
 
-const EntityListItem = ({ imgSrc, primaryContent, secondaryContent, onClick }: EntityListItemProps) => (
-  <Wrapper tabIndex={0} onClick={onClick}>
-    <Image src={imgSrc} />
+const EntityListItem = ({
+  id,
+  imgSrc,
+  primaryContent,
+  secondaryContent,
+  onClick = () => {},
+}: EntityListItemProps) => (
+  <Wrapper tabIndex={0} onClick={(e) => onClick(e, id)}>
+    {imgSrc && <Image src={imgSrc} />}
     <ContentWrapper>
       <Typography weight="medium">{primaryContent}</Typography>
       {secondaryContent && <Typography size="s">{secondaryContent}</Typography>}
