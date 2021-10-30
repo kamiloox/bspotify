@@ -1,13 +1,12 @@
 import { HeroWrapper, HeroTextWrapper, ContentWrapper, OptionsWrapper, Image } from './styles';
 import manInCityImage from '../../assets/manTravelsCity.png';
-import Header from '../../components/organisms/Header/Header';
 import Typography from '../../components/atoms/Typography/Typography';
 import LinkOption from '../../components/molecules/LinkOption/LinkOption';
 import routes from '../../utils/routes/routes';
+import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 
 const App = () => (
-  <>
-    <Header rounded={false} />
+  <MainTemplate roundedHeader={false} padding="0">
     <HeroWrapper>
       <Image src={manInCityImage} />
       <HeroTextWrapper>
@@ -32,7 +31,7 @@ const App = () => (
         <LinkOption to={routes.entitiesExisting.path}>Update your existing playlist</LinkOption>
       </OptionsWrapper>
     </ContentWrapper>
-  </>
+  </MainTemplate>
 );
 
 export default App;
