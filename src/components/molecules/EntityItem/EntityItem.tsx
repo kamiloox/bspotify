@@ -13,6 +13,7 @@ const Wrapper = styled.li`
   border-radius: 5px;
   padding: 10px;
   transition: all 0.2s;
+  min-height: 56px;
 
   &:hover {
     background-color: ${({ theme }) => hexToRGB(theme.color.black, 0.05)};
@@ -35,31 +36,31 @@ const Image = styled.img`
   border-radius: 50%;
 `;
 
-interface EntityListItemProps {
+export interface EntityItemProps {
   id: string;
   primaryContent: string;
+  isSelected?: boolean;
   secondaryContent?: string;
   imgSrc?: string;
   onClick?: (e: React.MouseEvent, id: string) => void;
 }
 
-const EntityListItem = ({
+const EntityItem = ({
   id,
   imgSrc,
   primaryContent,
   secondaryContent,
+  isSelected = false,
   onClick = () => {},
-}: EntityListItemProps) => (
+}: EntityItemProps) => (
   <Wrapper tabIndex={0} onClick={(e) => onClick(e, id)}>
     {imgSrc && <Image src={imgSrc} />}
     <ContentWrapper>
       <Typography weight="medium">{primaryContent}</Typography>
       {secondaryContent && <Typography size="s">{secondaryContent}</Typography>}
     </ContentWrapper>
-    <CheckWrapper>
-      <Check size={32} />
-    </CheckWrapper>
+    <CheckWrapper>{isSelected && <Check size={32} />}</CheckWrapper>
   </Wrapper>
 );
 
-export default EntityListItem;
+export default EntityItem;
