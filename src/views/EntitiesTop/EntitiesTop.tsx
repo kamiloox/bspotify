@@ -4,17 +4,13 @@ import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 import useEntitiesData from '../../hooks/useEntitiesData/useEntitiesData';
 
 const TopEntities = () => {
-  const { data, step, goToNextStep, setSearchText } = useEntitiesData();
+  const { data, handleSearchText, step, goToNextStep } = useEntitiesData();
 
   if (!data) return <p>isLoading...</p>;
 
   return (
     <MainTemplate padding="7px 20px" viewportHeight>
-      <EntitiesViewTemplate
-        step={step}
-        onSearch={(e) => setSearchText(e.target.value)}
-        onSubmit={goToNextStep}
-      >
+      <EntitiesViewTemplate step={step} onSearch={handleSearchText} onSubmit={goToNextStep}>
         {data.map((itemData) => (
           <EntityItem {...itemData} />
         ))}

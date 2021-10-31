@@ -1,41 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { EntityItemProps } from '../../components/molecules/EntityItem/EntityItem';
-import { EntityTypes, QueryReturnEntityType } from '../../utils/types/App';
+import { useAppContext } from '../../contexts/AppContext/AppContext';
+import { QueryReturnEntityType } from '../../utils/types/App';
 import useEntitiesQuery from '../useEntitiesQuery/useEntitiesQuery';
 import { artistsFilter, tracksFilter, genresFilter } from './filters';
 
 type EntityData = EntityItemProps & { key: string };
 
+// This hook re-exports some data from useAppContext!
 const useEntitiesData = () => {
   let data: EntityData[] = [];
-  const steps: EntityTypes[] = ['tracks', 'artists', 'genres'];
-  const [step, setStep] = useState<EntityTypes>(steps[0]);
-  const [selectedEntities, setSelectedEntities] = useState<{ [k in EntityTypes]: string[] }>({
-    artists: [],
-    genres: [],
-    tracks: [],
-  });
-
-  const query = useEntitiesQuery(step);
   const [searchText, setSearchText] = useState('');
-
-  const goToNextStep = () => {
-    const currentStage = steps.indexOf(step);
-    if (steps.length > currentStage + 1) setStep(steps[currentStage + 1]);
-    else console.log('submit choices');
-  };
-
-  const handleEntityClick: EntityItemProps['onClick'] = (e, id) => {
-    const MAX_LENGTH = 5;
-    if (!selectedEntities[step].includes(id) && selectedEntities[step].length < MAX_LENGTH) {
-      setSelectedEntities({ ...selectedEntities, [step]: [...selectedEntities[step], id] });
-    } else {
-      const filteredEntities = selectedEntities[step].filter((currentId) => currentId !== id);
-      setSelectedEntities({ ...selectedEntities, [step]: [...filteredEntities] });
-    }
-  };
-
-  const response = query.data;
+  const { step, goToNextStep, handleEntityClick, selectedEntities } = useAppContext();
+  const { data: response } = useEntitiesQuery(step);
 
   if (response && step === 'artists') {
     const { items } = response as QueryReturnEntityType<'artists'>;
@@ -72,7 +49,9 @@ const useEntitiesData = () => {
     }));
   }
 
-  return { step, searchText, setSearchText, goToNextStep, selectedEntities, data };
+  const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
+
+  return { data, handleSearchText, step, goToNextStep };
 };
 
 export default useEntitiesData;
