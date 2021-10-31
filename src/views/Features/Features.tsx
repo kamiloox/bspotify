@@ -5,7 +5,7 @@ import LinkOption from '../../components/molecules/LinkOption/LinkOption';
 import routes from '../../utils/routes/routes';
 import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 
-const App = () => (
+const Features = () => (
   <MainTemplate roundedHeader={false} padding="0">
     <HeroWrapper>
       <Image src={manInCityImage} />
@@ -34,4 +34,4 @@ const App = () => (
   </MainTemplate>
 );
 
-export default App;
+export default Features;

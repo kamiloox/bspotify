@@ -5,13 +5,14 @@ import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 import { useUserContext } from '../../contexts/UserContext/UserContext';
 import { useHistory } from 'react-router-dom';
 import TextField from '../../components/molecules/TextField/TextField';
+import routes from '../../utils/routes/routes';
 
 const Home = () => {
   const { isAuthenticated } = useUserContext();
   const history = useHistory();
 
   const handleLogin = () => {
-    if (isAuthenticated) history.push('/app');
+    if (isAuthenticated) history.push(routes.appPlayer.path);
     else window.location.replace(`${BACKEND_URL}/auth/login`);
   };
 

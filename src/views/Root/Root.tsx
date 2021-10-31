@@ -2,10 +2,11 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AllContextsProvider from './AllContextsProvider';
 import routes from '../../utils/routes/routes';
 import ProtectedRoute from '../../components/organisms/ProtectedRoute/ProtectedRoute';
-import App from '../App/App';
+import Features from '../Features/Features';
 import Home from '../Home/Home';
 import NotFound404 from '../NotFound404/NotFound404';
 import EntitiesTop from '../EntitiesTop/EntitiesTop';
+import AppPlayer from '../AppPlayer/AppPlayer';
 
 const Root = () => (
   <AllContextsProvider>
@@ -14,8 +15,11 @@ const Root = () => (
         <Route path={routes.home.path} exact>
           <Home />
         </Route>
-        <ProtectedRoute path={routes.app.path}>
-          <App />
+        <ProtectedRoute path={routes.features.path}>
+          <Features />
+        </ProtectedRoute>
+        <ProtectedRoute path={routes.appPlayer.path}>
+          <AppPlayer />
         </ProtectedRoute>
         <ProtectedRoute path={routes.entitiesTop.path}>
           <EntitiesTop />

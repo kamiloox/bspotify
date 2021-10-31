@@ -7,8 +7,12 @@ const routes = {
     path: '*',
     public: true,
   },
-  app: {
-    path: '/app',
+  features: {
+    path: '/features',
+    public: false,
+  },
+  appPlayer: {
+    path: '/app-player',
     public: false,
   },
   // Select entities from top user artists, tracks and genres
