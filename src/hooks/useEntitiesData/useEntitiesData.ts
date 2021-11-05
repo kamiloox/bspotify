@@ -11,7 +11,7 @@ type EntityData = EntityItemProps & { key: string };
 const useEntitiesData = () => {
   let data: EntityData[] = [];
   const [searchText, setSearchText] = useState('');
-  const { step, goToNextStep, handleEntityClick, selectedEntities } = useAppContext();
+  const { step, goToStep, handleEntityClick, selectedEntities } = useAppContext();
   const { data: response } = useEntitiesQuery(step);
 
   if (response && step === 'artists') {
@@ -51,7 +51,7 @@ const useEntitiesData = () => {
 
   const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
 
-  return { data, handleSearchText, step, goToNextStep };
+  return { data, handleSearchText, step, goToStep };
 };
 
 export default useEntitiesData;
