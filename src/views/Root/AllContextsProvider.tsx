@@ -1,6 +1,7 @@
 import { ReactChild } from 'react';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import AppProvider from '../../contexts/AppContext/AppContext';
+import ToastProvider from '../../contexts/ToastContext/ToastContext';
 import UserProvider from '../../contexts/UserContext/UserContext';
 import ThemeProvider from '../../theme/ThemeProvider';
 
@@ -12,11 +13,13 @@ interface AllContextsProviderProps {
 
 const AllContextsProvider = ({ children }: AllContextsProviderProps) => (
   <QueryClientProvider client={queryClient}>
-    <UserProvider>
-      <AppProvider>
-        <ThemeProvider>{children}</ThemeProvider>
-      </AppProvider>
-    </UserProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <UserProvider>
+          <AppProvider>{children}</AppProvider>
+        </UserProvider>
+      </ToastProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
