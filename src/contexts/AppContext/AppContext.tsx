@@ -9,12 +9,15 @@ type SelectedEntitiesType = { [k in EntityTypes]: string[] };
 
 type Direction = 'next' | 'previous';
 
+type History = ReturnType<typeof useHistory>;
+
 interface AppContextState {
   selectedEntities: SelectedEntitiesType;
   step: EntityTypes;
   handleEntityClick: EntityItemProps['onClick'];
-  goToStep: (history: ReturnType<typeof useHistory>, direction?: Direction) => void;
+  goToStep: (history: History, direction?: Direction) => void;
   getSelectedEntitiesLength: () => number;
+  submitChoices: (history: History) => void;
 }
 
 const AppContext = createContext({} as AppContextState);
@@ -41,17 +44,24 @@ const AppProvider = ({ children }: AppProviderProps) => {
       .reduce((a, b) => a + b, 0);
   };
 
-  const goToStep: AppContextState['goToStep'] = (history, direction = 'next') => {
+  const submitChoices = (history: History) => {
     const selectedEntitiesLength = getSelectedEntitiesLength();
+
+    if (selectedEntitiesLength < 1) showToast('You mast choose at least one entry', 'error');
+    else history.push(routes.appPlayer.path);
+  };
+
+  const goToStep: AppContextState['goToStep'] = (history, direction = 'next') => {
     const currentStepIndex = steps.indexOf(step);
+
+    const isLastStep = currentStepIndex + 1 === steps.length;
+    if (direction === 'next' && isLastStep) submitChoices(history);
 
     if (direction === 'next') {
       const canGoNext = steps.length > currentStepIndex + 1;
       if (canGoNext) setStep(steps[currentStepIndex + 1]);
-      else if (selectedEntitiesLength < 1) showToast('You mast choose one entry', 'error');
-      else history.push(routes.appPlayer.path); // Everything is fine go to player
     } else {
-      const canGoBack = currentStepIndex - 1 > 0;
+      const canGoBack = currentStepIndex > 0;
       if (canGoBack) setStep(steps[currentStepIndex - 1]);
     }
   };
@@ -75,6 +85,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
     getSelectedEntitiesLength,
     goToStep,
     handleEntityClick,
+    submitChoices,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

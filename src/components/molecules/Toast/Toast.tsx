@@ -39,11 +39,6 @@ const MessageWrapper = styled.div`
   text-align: center;
 `;
 
-const StyledIconButton = styled(IconButton)`
-  width: 32px;
-  height: 32px;
-`;
-
 export interface ToastProps extends WrapperProps {
   children: ReactNode;
   onClose?: () => void;
@@ -54,9 +49,9 @@ const Toast = ({ children, variant, isShowed, onClose }: ToastProps) => (
     <MessageWrapper>
       <Typography weight="medium">{children}</Typography>
     </MessageWrapper>
-    <StyledIconButton color={variant === 'warning' ? 'primary' : variant}>
+    <IconButton fitToContent color={variant === 'warning' ? 'primary' : variant}>
       <X size={32} onClick={onClose} />
-    </StyledIconButton>
+    </IconButton>
   </Wrapper>
 );
 

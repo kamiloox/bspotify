@@ -6,6 +6,7 @@ import Typography from '../../atoms/Typography/Typography';
 import HamburgerButton from '../../molecules/HamburgerButton/HamburgerButton';
 import ProfilePicture from '../../atoms/ProfilePicture/ProfilePicture';
 import Navigation from '../../molecules/Navigation/Navigation';
+import { useUserContext } from '../../../contexts/UserContext/UserContext';
 
 interface WrapperProps {
   rounded?: boolean;
@@ -32,6 +33,7 @@ interface HeaderProps extends WrapperProps {}
 const Header = forwardRef<HTMLElement, HeaderProps>(({ rounded }: HeaderProps, ref) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const { pathname } = useLocation();
+  const { user } = useUserContext();
 
   const ProfilePictureOrLogo = isRoutePublic(pathname) ? (
     <Link to="/">
@@ -40,7 +42,7 @@ const Header = forwardRef<HTMLElement, HeaderProps>(({ rounded }: HeaderProps, r
       </Typography>
     </Link>
   ) : (
-    <ProfilePicture />
+    <ProfilePicture imgSrc={user?.images[0]?.url || undefined} />
   );
 
   return (

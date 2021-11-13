@@ -3,6 +3,8 @@ import Button from '../../atoms/Button/Button';
 
 interface IconButtonProps {
   small?: boolean;
+  fitToContent?: boolean;
+  p?: string;
 }
 
 const IconButton = styled(Button)<IconButtonProps>`
@@ -12,12 +14,19 @@ const IconButton = styled(Button)<IconButtonProps>`
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  padding: 0;
-  ${(props) =>
-    props?.small &&
+  padding: ${({ p = '0' }) => p};
+  ${({ small = false }) =>
+    small &&
     css`
       width: 40px;
       height: 40px;
+    `}
+
+  ${({ fitToContent = false }) =>
+    fitToContent &&
+    css`
+      width: auto;
+      height: auto;
     `}
 `;
 

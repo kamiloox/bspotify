@@ -1,41 +1,39 @@
-import { ReactNode, ChangeEvent, MouseEvent } from 'react';
-import styled from 'styled-components';
-import Button from '../../atoms/Button/Button';
+import { ReactNode, ChangeEvent } from 'react';
+import { ArrowLeft, ArrowRight } from '@styled-icons/bootstrap';
+import { Wrapper, EntitiesList, BottomButtonsWrapper } from './styles';
+import IconButton from '../../molecules/IconButton/IconButton';
 import TextField from '../../molecules/TextField/TextField';
-
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 10px;
-`;
-
-const EntitiesList = styled.ul`
-  margin: 10px 0;
-  padding: 5px 0;
-  list-style: none;
-  overflow-y: auto;
-  flex: 1;
-  & > :not(:last-child) {
-    margin-bottom: 10px;
-  }
-`;
+import Button from '../../atoms/Button/Button';
+import { useAppContext } from '../../../contexts/AppContext/AppContext';
+import { useHistory } from 'react-router';
 
 interface EntitiesViewTemplateProps {
   step: string;
   children: ReactNode;
   onSearch?: (e: ChangeEvent<HTMLInputElement>) => void;
-  onSubmit?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const EntitiesViewTemplate = ({ step, children, onSearch, onSubmit }: EntitiesViewTemplateProps) => (
-  <Wrapper>
-    <TextField id="search" onChange={onSearch} label={`Search ${step}`} />
-    <EntitiesList>{children}</EntitiesList>
-    <Button onClick={onSubmit} fullWidth>
-      Submit {step}
-    </Button>
-  </Wrapper>
-);
+const EntitiesViewTemplate = ({ step, children, onSearch }: EntitiesViewTemplateProps) => {
+  const history = useHistory();
+  const { goToStep, submitChoices } = useAppContext();
+
+  return (
+    <Wrapper>
+      <TextField id="search" onChange={onSearch} label={`Search ${step}`} />
+      <EntitiesList>{children}</EntitiesList>
+      <BottomButtonsWrapper>
+        <IconButton small onClick={() => goToStep(history, 'previous')}>
+          <ArrowLeft size={24} />
+        </IconButton>
+        <Button color="success" onClick={() => submitChoices(history)}>
+          Submit choices
+        </Button>
+        <IconButton small onClick={() => goToStep(history, 'next')}>
+          <ArrowRight size={24} />
+        </IconButton>
+      </BottomButtonsWrapper>
+    </Wrapper>
+  );
+};
 
 export default EntitiesViewTemplate;
