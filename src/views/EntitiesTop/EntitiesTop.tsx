@@ -1,22 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EntityItem from '../../components/molecules/EntityItem/EntityItem';
 import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 import useTopEntities from './useTopEntities/useTopEntities';
 import EntitiesViewTemplate from '../../components/templates/EntitiesViewTemplate/EntitiesViewTemplate';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver/useIntersectionObserver';
 
 const EntitiesTop = () => {
   const [searchText, setSearchText] = useState('');
-  const { data, isLoading } = useTopEntities(searchText);
+  const { data, isLoading, hasNextPage, fetchNextPage } = useTopEntities(searchText);
+  const { elementRef: lastItemRef, isIntersecting } = useIntersectionObserver();
 
-  if (isLoading) return <p>isLoading...</p>;
+  useEffect(() => {
+    if (isIntersecting && hasNextPage) fetchNextPage();
+  }, [isIntersecting, hasNextPage, fetchNextPage]);
 
   return (
     <MainTemplate padding="7px 20px" viewportHeight>
-      <EntitiesViewTemplate onSearch={(e) => setSearchText(e.target.value)}>
-        {data.map((itemData) => (
-          <EntityItem {...itemData} />
-        ))}
-      </EntitiesViewTemplate>
+      {isLoading ? (
+        <p>isLoading...</p>
+      ) : (
+        <EntitiesViewTemplate onSearch={(e) => setSearchText(e.target.value)}>
+          {data.map((itemData, index) => {
+            const isLastItem = data.length === index + 1;
+            if (isLastItem) return <EntityItem {...itemData} ref={lastItemRef} />;
+            return <EntityItem {...itemData} />;
+          })}
+        </EntitiesViewTemplate>
+      )}
     </MainTemplate>
   );
 };

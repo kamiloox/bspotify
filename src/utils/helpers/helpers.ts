@@ -30,3 +30,13 @@ export const isRoutePublic = (path: string): boolean => {
   if (routes[key as keyof typeof routes]?.public || !routes[key as keyof typeof routes]) return true;
   return false;
 };
+
+export const spotifyToBackendUrl = (argUrl: string | null) => {
+  if (!argUrl) return null;
+  const url = new URL(argUrl);
+  let newUrl = '';
+  if (url.host.includes('spotify')) {
+    newUrl = `/api${url.pathname.substring('/v1'.length)}${url.search}`;
+  }
+  return newUrl;
+};

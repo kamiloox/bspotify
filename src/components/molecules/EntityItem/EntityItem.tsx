@@ -1,8 +1,8 @@
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Check } from '@styled-icons/bootstrap';
 import { hexToRGB } from '../../../utils/helpers/helpers';
 import Typography from '../../atoms/Typography/Typography';
-import React from 'react';
 
 const Wrapper = styled.li`
   box-shadow: 0px 4px 4px ${({ theme }) => hexToRGB(theme.color.black, 0.25)};
@@ -45,22 +45,17 @@ export interface EntityItemProps {
   onClick?: (e: React.MouseEvent, id: string) => void;
 }
 
-const EntityItem = ({
-  id,
-  imgSrc,
-  primaryContent,
-  secondaryContent,
-  isSelected = false,
-  onClick = () => {},
-}: EntityItemProps) => (
-  <Wrapper tabIndex={0} onClick={(e) => onClick(e, id)}>
-    {imgSrc && <Image src={imgSrc} />}
-    <ContentWrapper>
-      <Typography weight="medium">{primaryContent}</Typography>
-      {secondaryContent && <Typography size="s">{secondaryContent}</Typography>}
-    </ContentWrapper>
-    <CheckWrapper>{isSelected && <Check size={32} />}</CheckWrapper>
-  </Wrapper>
+const EntityItem = forwardRef<HTMLLIElement, EntityItemProps>(
+  ({ id, imgSrc, primaryContent, secondaryContent, isSelected = false, onClick = () => {} }, ref) => (
+    <Wrapper tabIndex={0} onClick={(e) => onClick(e, id)} ref={ref}>
+      {imgSrc && <Image src={imgSrc} />}
+      <ContentWrapper>
+        <Typography weight="medium">{primaryContent}</Typography>
+        {secondaryContent && <Typography size="s">{secondaryContent}</Typography>}
+      </ContentWrapper>
+      <CheckWrapper>{isSelected && <Check size={32} />}</CheckWrapper>
+    </Wrapper>
+  )
 );
 
 export default EntityItem;

@@ -1,8 +1,9 @@
 import { EntityItemProps } from '../../../components/molecules/EntityItem/EntityItem';
-import { QueryReturnEntityType } from '../../../utils/types/App';
 import useTopEntitiesQuery from './useTopEntitiesQuery/useTopEntitiesQuery';
 import { artistsFilter, tracksFilter } from './filters';
 import { useAppContext } from '../../../contexts/AppContext/AppContext';
+import { Artist } from '../../../utils/types/Artist';
+import { Track } from '../../../utils/types/Track';
 
 type DataToProps = EntityItemProps & { key: string };
 
@@ -13,7 +14,7 @@ const useTopEntiites = (searchText: string = '') => {
   const response = query.data;
 
   if (response && step === 'artists') {
-    const { items } = response as QueryReturnEntityType<'artists'>;
+    const items = response.pages.map((page) => page.items).flat() as Artist[];
     const filteredItems = artistsFilter(items, searchText);
     data = filteredItems.map((item) => ({
       id: item.id,
@@ -24,7 +25,7 @@ const useTopEntiites = (searchText: string = '') => {
       onClick: () => handleItemClick(item.id),
     }));
   } else if (response && step === 'tracks') {
-    const { items } = response as QueryReturnEntityType<'tracks'>;
+    const items = response.pages.map((page) => page.items).flat() as Track[];
     const filteredItems = tracksFilter(items, searchText);
     data = filteredItems.map((item) => ({
       id: item.id,
