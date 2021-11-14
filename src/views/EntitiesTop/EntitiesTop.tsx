@@ -1,16 +1,18 @@
+import { useState } from 'react';
 import EntityItem from '../../components/molecules/EntityItem/EntityItem';
-import EntitiesViewTemplate from '../../components/templates/EntitiesViewTemplate/EntitiesViewTemplate';
 import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
-import useEntitiesData from '../../hooks/useEntitiesData/useEntitiesData';
+import useTopEntities from './useTopEntities/useTopEntities';
+import EntitiesViewTemplate from '../../components/templates/EntitiesViewTemplate/EntitiesViewTemplate';
 
-const TopEntities = () => {
-  const { data, handleSearchText, step } = useEntitiesData();
+const EntitiesTop = () => {
+  const [searchText, setSearchText] = useState('');
+  const { data, isLoading } = useTopEntities(searchText);
 
-  if (!data) return <p>isLoading...</p>;
+  if (isLoading) return <p>isLoading...</p>;
 
   return (
     <MainTemplate padding="7px 20px" viewportHeight>
-      <EntitiesViewTemplate step={step} onSearch={handleSearchText}>
+      <EntitiesViewTemplate onSearch={(e) => setSearchText(e.target.value)}>
         {data.map((itemData) => (
           <EntityItem {...itemData} />
         ))}
@@ -19,4 +21,4 @@ const TopEntities = () => {
   );
 };
 
-export default TopEntities;
+export default EntitiesTop;

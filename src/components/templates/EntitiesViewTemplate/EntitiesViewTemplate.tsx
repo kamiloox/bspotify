@@ -8,14 +8,13 @@ import { useAppContext } from '../../../contexts/AppContext/AppContext';
 import { useHistory } from 'react-router';
 
 interface EntitiesViewTemplateProps {
-  step: string;
   children: ReactNode;
   onSearch?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const EntitiesViewTemplate = ({ step, children, onSearch }: EntitiesViewTemplateProps) => {
+const EntitiesViewTemplate = ({ children, onSearch }: EntitiesViewTemplateProps) => {
+  const { goToStep, submitChoices, step } = useAppContext();
   const history = useHistory();
-  const { goToStep, submitChoices } = useAppContext();
 
   return (
     <Wrapper>

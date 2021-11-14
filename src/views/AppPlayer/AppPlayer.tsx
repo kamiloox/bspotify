@@ -1,6 +1,6 @@
 import MusicPlayer from '../../components/organisms/MusicPlayer/MusicPlayer';
 import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
-import useRecommendationsQuery from './useRecommendationsQuery';
+import useRecommendationsQuery from './useRecommendationsQuery/useRecommendationsQuery';
 
 const AppPlayer = () => {
   const { data, isLoading } = useRecommendationsQuery();
