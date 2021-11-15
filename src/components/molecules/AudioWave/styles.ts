@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const columnWidth = 10; // Column width with margin-left and margin-right
 
 export const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.color.white};
+  height: 40px;
   display: inline-flex;
   align-items: center;
   & > span:not(:last-child) {

@@ -8,14 +8,18 @@ interface MusicPlayerProps {
   imgSrc: string;
   artist: string;
   title: string;
+  focusable?: boolean;
 }
 
-const MusicPlayer = ({ title, artist, audioSrc, imgSrc }: MusicPlayerProps) => {
+const MusicPlayer = ({ title, artist, audioSrc, imgSrc, focusable = false }: MusicPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    audioRef.current?.addEventListener('ended', () => setIsPlaying(false));
+    const { current } = audioRef;
+    const handleStopPlaying = () => setIsPlaying(false);
+    current?.addEventListener('ended', handleStopPlaying);
+    return () => current?.removeEventListener('ended', handleStopPlaying);
   }, []);
 
   const handleClick = () => {
@@ -30,11 +34,11 @@ const MusicPlayer = ({ title, artist, audioSrc, imgSrc }: MusicPlayerProps) => {
     <Wrapper>
       <audio ref={audioRef} src={audioSrc} />
       <AlbumCover artist={artist} title={title} imgSrc={imgSrc}>
-        <RotatedIconButton onClick={handleClick} isRotating={isPlaying}>
+        <RotatedIconButton onClick={handleClick} isRotating={isPlaying} tabIndex={focusable ? 0 : -1}>
           {isPlaying ? <PauseFill size={42} /> : <PlayFill size={42} />}
         </RotatedIconButton>
       </AlbumCover>
-      <AudioWave maxWidth={280} audioRef={audioRef} />
+      <AudioWave maxWidth={280} audioRef={audioRef} focusable={focusable} />
     </Wrapper>
   );
 };

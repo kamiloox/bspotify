@@ -1,15 +1,17 @@
 import { createRef, ReactNode, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import styled, { FlattenSimpleInterpolation } from 'styled-components';
 import Header from '../../organisms/Header/Header';
 
 interface ContentWrapperProps {
   padding?: string;
   viewportHeight?: boolean;
+  css?: FlattenSimpleInterpolation;
 }
 
 const ContentWrapper = styled.div<ContentWrapperProps>`
   padding: ${({ padding = '30px 20px' }) => padding};
   overflow-y: ${({ viewportHeight }) => (viewportHeight ? 'hidden' : 'auto')};
+  ${(props) => (props.css ? props.css : '')};
 `;
 
 interface MainTemplateProps extends ContentWrapperProps {
@@ -22,6 +24,7 @@ const MainTemplate = ({
   padding,
   viewportHeight,
   roundedHeader = true,
+  css,
 }: MainTemplateProps) => {
   const headerRef = createRef<HTMLElement>();
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -44,7 +47,7 @@ const MainTemplate = ({
   return (
     <>
       <Header ref={headerRef} rounded={roundedHeader} />
-      <ContentWrapper ref={contentRef} padding={padding} viewportHeight={viewportHeight}>
+      <ContentWrapper ref={contentRef} padding={padding} viewportHeight={viewportHeight} css={css}>
         {children}
       </ContentWrapper>
     </>
