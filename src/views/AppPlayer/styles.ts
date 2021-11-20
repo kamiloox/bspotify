@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 export const templateCss = css`
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 `;
 
 export const InfoWrapper = styled.div`

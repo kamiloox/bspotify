@@ -2,10 +2,15 @@ import styled, { keyframes, css } from 'styled-components';
 import { PauseFill, PlayFill } from '@styled-icons/bootstrap';
 import IconButton from '../../molecules/IconButton/IconButton';
 
-export const Wrapper = styled.div`
+interface WrapperProps {
+  focusable?: boolean;
+}
+
+export const Wrapper = styled.div<WrapperProps>`
   display: flex;
   align-items: center;
   flex-direction: column;
+  z-index: ${({ focusable = false }) => (focusable ? '10' : '1')};
 
   & > *:last-child {
     margin-top: 20px;
