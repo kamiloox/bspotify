@@ -15,6 +15,7 @@ interface AppContextState {
   step: EntityType;
   handleItemClick: (id: string) => void;
   goToStep: (history: History, direction?: Direction) => void;
+  getSelectedEntitiesLength: () => number;
   submitChoices: (history: History) => void;
 }
 
@@ -86,6 +87,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const value: AppContextState = {
     step,
     selectedEntities,
+    getSelectedEntitiesLength,
     goToStep,
     handleItemClick,
     submitChoices,

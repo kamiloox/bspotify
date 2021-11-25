@@ -6,14 +6,14 @@ import { CurrentUserProfile } from '../../../../utils/types/CurrentUserProfile';
 import { Track } from '../../../../utils/types/Track';
 
 const useRecommendationsQuery = () => {
-  const { selectedEntities } = useAppContext();
+  const { selectedEntities, getSelectedEntitiesLength } = useAppContext();
   const userState = useUserContext();
   const { country } = userState.user as CurrentUserProfile;
 
   const params = new URLSearchParams({
     limit: '10',
     market: country,
-    seed_tracks: ['78jIj6Ph2364zg1ZVIvbIN', '1VikIHUhVtGjHnrv8W1vQP'].join(','),
+    seed_tracks: selectedEntities.tracks.join(','),
     seed_artists: selectedEntities.artists.join(','),
   });
 
@@ -21,6 +21,7 @@ const useRecommendationsQuery = () => {
   const query = useInfiniteQuery<Track[]>('recommendations', () => fetchBackend(url), {
     refetchOnWindowFocus: false,
     getPreviousPageParam: () => fetchBackend(url), // Workaround - fetch more data without deleting existing
+    enabled: getSelectedEntitiesLength() > 0,
   });
 
   const { isLoading, data, fetchPreviousPage } = query;
