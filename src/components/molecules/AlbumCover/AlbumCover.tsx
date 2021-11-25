@@ -1,17 +1,19 @@
 import React from 'react';
 import Typography from '../../atoms/Typography/Typography';
-import { Wrapper, Image, SongInfoWrapper, CenteredContent } from './styles';
+import { Wrapper, SongInfoWrapper, CenteredContent, CoverBackground, Disc, Image } from './styles';
 
 interface AlbumCoverProps {
   title: string;
   artist: string;
-  imgSrc: string;
+  imgSrc?: string;
   children?: React.ReactChild;
 }
 
 const AlbumCover = ({ artist, title, imgSrc, children }: AlbumCoverProps) => (
   <Wrapper>
-    <Image src={imgSrc} alt={`One of ${artist} album`} />
+    <CoverBackground>
+      {imgSrc ? <Image src={imgSrc} alt={`One of ${artist} album`} /> : <Disc size={40} />}
+    </CoverBackground>
     <SongInfoWrapper>
       <Typography color="white" weight="medium">
         {title}

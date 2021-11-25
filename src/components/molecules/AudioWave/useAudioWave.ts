@@ -7,9 +7,12 @@ const useAudioWave = (ref: refType) => {
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    ref.current?.addEventListener('timeupdate', function () {
+    const updateProgress: (this: HTMLAudioElement) => void = function () {
       setProgress(this.currentTime / this.duration);
-    });
+    };
+    const { current } = ref;
+    current?.addEventListener('timeupdate', updateProgress);
+    return () => current?.removeEventListener('timeupdate', updateProgress);
   }, [ref]);
 
   const changeProgressWithSync = (newProgress: number) => {

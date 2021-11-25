@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { Disc } from '@styled-icons/bootstrap';
 import { hexToRGB } from '../../../utils/helpers/helpers';
 
 export const Wrapper = styled.div`
   position: relative;
-  max-height: 300px;
-  max-width: 300px;
+  height: 300px;
+  width: 300px;
   border-radius: 20px;
   overflow: hidden;
   z-index: 1;
@@ -31,6 +32,13 @@ export const SongInfoWrapper = styled.div`
   z-index: 3;
 `;
 
+export const CoverBackground = styled.div`
+  background-color: ${({ theme }) => theme.color.darkGray};
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
 export const Image = styled.img`
   width: 100%;
   height: 100%;
@@ -47,3 +55,12 @@ export const CenteredContent = styled.div`
   justify-content: center;
   z-index: 4;
 `;
+
+const StyledDisc = styled(Disc)`
+  color: ${({ theme }) => theme.color.white};
+  position: absolute;
+  top: 20px;
+  left: 20px;
+`;
+
+export { StyledDisc as Disc };

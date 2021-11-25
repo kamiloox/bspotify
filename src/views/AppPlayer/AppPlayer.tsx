@@ -6,7 +6,7 @@ import IconButton from '../../components/molecules/IconButton/IconButton';
 import Typography from '../../components/atoms/Typography/Typography';
 
 const AppPlayer = () => {
-  const { isLoading, playersJSX, acceptTrack, rejectTrack } = useRecommendations();
+  const { isLoading, playersJSX, savedTrackIds, acceptTrack, rejectTrack } = useRecommendations();
 
   if (isLoading) return <p>isLoading...</p>;
 
@@ -22,7 +22,7 @@ const AppPlayer = () => {
         <Typography size="s">
           saved{' '}
           <Typography as="span" size="s" weight="medium">
-            n songs
+            {savedTrackIds.length} songs
           </Typography>{' '}
           in playlist
         </Typography>
