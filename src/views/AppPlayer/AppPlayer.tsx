@@ -5,11 +5,17 @@ import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 import useRecommendations from './useRecommendations/useRecommendations';
 import IconButton from '../../components/molecules/IconButton/IconButton';
 import Typography from '../../components/atoms/Typography/Typography';
+import Progress from '../../components/atoms/Progress/Progress';
 
 const AppPlayer = () => {
   const { isLoading, playersJSX, savedTrackIds, acceptTrack, rejectTrack } = useRecommendations();
 
-  if (isLoading) return <p>isLoading...</p>;
+  if (isLoading)
+    return (
+      <MainTemplate>
+        <Progress center />
+      </MainTemplate>
+    );
 
   return (
     <AppPlayerWrapper>

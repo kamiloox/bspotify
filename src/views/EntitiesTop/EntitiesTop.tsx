@@ -4,6 +4,7 @@ import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 import useTopEntities from './useTopEntities/useTopEntities';
 import EntitiesViewTemplate from '../../components/templates/EntitiesViewTemplate/EntitiesViewTemplate';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver/useIntersectionObserver';
+import Progress from '../../components/atoms/Progress/Progress';
 
 const EntitiesTop = () => {
   const [searchText, setSearchText] = useState('');
@@ -16,17 +17,17 @@ const EntitiesTop = () => {
 
   return (
     <MainTemplate padding="7px 20px" viewportHeight>
-      {isLoading ? (
-        <p>isLoading...</p>
-      ) : (
-        <EntitiesViewTemplate onSearch={(e) => setSearchText(e.target.value)}>
-          {data.map((itemData, index) => {
+      <EntitiesViewTemplate onSearch={(e) => setSearchText(e.target.value)}>
+        {isLoading ? (
+          <Progress center />
+        ) : (
+          data.map((itemData, index) => {
             const isLastItem = data.length === index + 1;
             if (isLastItem) return <EntityItem {...itemData} ref={lastItemRef} />;
             return <EntityItem {...itemData} />;
-          })}
-        </EntitiesViewTemplate>
-      )}
+          })
+        )}
+      </EntitiesViewTemplate>
     </MainTemplate>
   );
 };
