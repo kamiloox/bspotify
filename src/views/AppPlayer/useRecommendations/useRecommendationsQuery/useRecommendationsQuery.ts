@@ -20,13 +20,11 @@ const useRecommendationsQuery = () => {
   const url = `/api/recommendations?${params.toString()}`;
   const query = useInfiniteQuery<Track[]>('recommendations', () => fetchBackend(url), {
     refetchOnWindowFocus: false,
-    getPreviousPageParam: () => fetchBackend(url), // Workaround - fetch more data without deleting existing
+    getNextPageParam: () => url,
     enabled: getSelectedEntitiesLength() > 0,
   });
 
-  const { isLoading, data, fetchPreviousPage } = query;
-
-  return { isFetchingMore: query.isFetchingPreviousPage, isLoading, data, fetchMore: fetchPreviousPage };
+  return query;
 };
 
 export default useRecommendationsQuery;

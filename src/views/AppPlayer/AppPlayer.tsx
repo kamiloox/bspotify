@@ -8,7 +8,7 @@ import Typography from '../../components/atoms/Typography/Typography';
 import Progress from '../../components/atoms/Progress/Progress';
 
 const AppPlayer = () => {
-  const { isLoading, playersJSX, savedTrackIds, acceptTrack, rejectTrack } = useRecommendations();
+  const { isLoading, playersJSX, savedTrackUris, acceptTrack, rejectTrack } = useRecommendations();
 
   if (isLoading)
     return (
@@ -30,7 +30,7 @@ const AppPlayer = () => {
           <Typography size="s">
             saved{' '}
             <Typography as="span" size="s" weight="medium">
-              {savedTrackIds.length} songs
+              {savedTrackUris.length} songs
             </Typography>{' '}
             in playlist
           </Typography>

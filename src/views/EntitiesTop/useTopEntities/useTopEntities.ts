@@ -1,11 +1,11 @@
-import { EntityItemProps } from '../../../components/molecules/EntityItem/EntityItem';
+import { ListItemProps } from '../../../components/molecules/ListItem/LIstItem';
 import useTopEntitiesQuery from './useTopEntitiesQuery/useTopEntitiesQuery';
 import { artistsFilter, tracksFilter } from './filters';
 import { useAppContext } from '../../../contexts/AppContext/AppContext';
 import { Artist } from '../../../utils/types/Artist';
 import { Track } from '../../../utils/types/Track';
 
-type DataToProps = EntityItemProps & { key: string };
+type DataToProps = ListItemProps & { key: string };
 
 const useTopEntiites = (searchText: string = '') => {
   let data: DataToProps[] = [];

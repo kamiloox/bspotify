@@ -1,41 +1,42 @@
-import { useState } from 'react';
-import { useQueryClient, InfiniteData } from 'react-query';
+import { useState, useEffect } from 'react';
 import useGestures, { Direction } from './useGestures/useGestures';
 import MusicPlayer from '../../../components/organisms/MusicPlayer/MusicPlayer';
 import useRecommendationsQuery from './useRecommendationsQuery/useRecommendationsQuery';
 import { Track } from '../../../utils/types/Track';
 
 const useRecommendations = () => {
-  const queryClient = useQueryClient();
   const query = useRecommendationsQuery();
-  const data = query.data?.pages.flat();
-  const [savedTrackIds, setSavedTrackIds] = useState<string[]>([]);
+  const [savedTrackUris, setSavedTrackUris] = useState<string[]>([]);
+  const [itemsToRender, setItemsToRender] = useState<Track[]>([]);
 
-  const updateQueryData = (direction: Direction) => {
-    queryClient.setQueryData<InfiniteData<Track[]>>('recommendations', (oldData) => {
-      if (!oldData) return {} as InfiniteData<Track[]>;
-      const newPages = [...oldData.pages].filter((page) => page.length > 0);
-      const poppedTrack = newPages[newPages.length - 1].pop();
-      if (poppedTrack?.id && direction === 'right') setSavedTrackIds([...savedTrackIds, poppedTrack.id]);
-      return { pages: newPages, pageParams: oldData.pageParams };
-    });
-    const shouldUpdateCache = data && data.length < 4;
-    if (shouldUpdateCache && !query.isFetchingMore) query.fetchMore();
+  useEffect(() => {
+    if (query.data)
+      setItemsToRender((prevStack) => [...query.data.pages[query.data.pages.length - 1], ...prevStack]);
+  }, [query.data]);
+
+  const updateItemsToRender = (direction: Direction) => {
+    const itemsToRenderCopy = [...itemsToRender];
+    const lastTrack = itemsToRenderCopy.pop();
+    if (lastTrack && direction === 'right') setSavedTrackUris([...savedTrackUris, lastTrack.uri]);
+    setItemsToRender(itemsToRenderCopy);
+
+    const shouldFetchNewRecommendations = itemsToRender.length < 4;
+    if (shouldFetchNewRecommendations) query.fetchNextPage();
   };
 
-  const { bind, moveTrack, springsStyle } = useGestures(data, updateQueryData);
+  const { bind, moveTrack, springsStyle } = useGestures(itemsToRender, updateItemsToRender);
 
   const moveTrackAndUpdateData = (direction: Direction) => {
     moveTrack(direction);
-    setTimeout(() => updateQueryData(direction), 700);
+    setTimeout(() => updateItemsToRender(direction), 700);
   };
 
   const acceptTrack = () => moveTrackAndUpdateData('right');
 
   const rejectTrack = () => moveTrackAndUpdateData('left');
 
-  const playersJSX = data
-    ?.filter(({ preview_url }) => !!preview_url)
+  const playersJSX = itemsToRender
+    .filter(({ preview_url }) => !!preview_url)
     .map(({ id, artists, preview_url, album, name }, index) => (
       <MusicPlayer
         key={id}
@@ -43,13 +44,13 @@ const useRecommendations = () => {
         artist={artists.map(({ name }) => name).join(', ')}
         audioSrc={preview_url as string}
         imgSrc={album.images[0].url}
-        focusable={data.length === index + 1 ? true : false}
+        focusable={itemsToRender.length === index + 1 ? true : false}
         style={{ touchAction: 'none', ...springsStyle[index] }}
         {...bind(index)}
       />
     ));
 
-  return { ...query, playersJSX, savedTrackIds, acceptTrack, rejectTrack };
+  return { ...query, playersJSX, savedTrackUris, acceptTrack, rejectTrack };
 };
 
 export default useRecommendations;

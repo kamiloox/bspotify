@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import EntityItem from '../../components/molecules/EntityItem/EntityItem';
+import ListItem from '../../components/molecules/ListItem/LIstItem';
 import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 import useTopEntities from './useTopEntities/useTopEntities';
 import EntitiesViewTemplate from '../../components/templates/EntitiesViewTemplate/EntitiesViewTemplate';
@@ -23,8 +23,8 @@ const EntitiesTop = () => {
 
   const listItems = data.map((itemData, index) => {
     const isLastItem = data.length === index + 1;
-    if (isLastItem) return <EntityItem {...itemData} ref={lastItemRef} />;
-    return <EntityItem {...itemData} />;
+    if (isLastItem) return <ListItem {...itemData} ref={lastItemRef} />;
+    return <ListItem {...itemData} />;
   });
 
   const fetchingNewPageProgress = (
