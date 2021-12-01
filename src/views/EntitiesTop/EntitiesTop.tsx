@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import ListItem from '../../components/molecules/ListItem/LIstItem';
 import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
-import useTopEntities from './useTopEntities/useTopEntities';
 import EntitiesViewTemplate from '../../components/templates/EntitiesViewTemplate/EntitiesViewTemplate';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver/useIntersectionObserver';
 import Progress from '../../components/atoms/Progress/Progress';
+import useEntities from '../../hooks/useEntities/useEntities';
 
 const NextPageProgressWrapper = styled.div`
   position: relative;
@@ -14,8 +14,9 @@ const NextPageProgressWrapper = styled.div`
 
 const EntitiesTop = () => {
   const [searchText, setSearchText] = useState('');
-  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useTopEntities(searchText);
   const { elementRef: lastItemRef, isIntersecting } = useIntersectionObserver();
+  const { hasNextPage, data, fetchNextPage, entityTemplateData, isLoading, isFetchingNextPage } =
+    useEntities(['tracks', 'artists'], searchText);
 
   useEffect(() => {
     if (isIntersecting && hasNextPage) fetchNextPage();
@@ -35,7 +36,7 @@ const EntitiesTop = () => {
 
   return (
     <MainTemplate padding="7px 20px" viewportHeight>
-      <EntitiesViewTemplate onSearch={(e) => setSearchText(e.target.value)}>
+      <EntitiesViewTemplate onSearch={(e) => setSearchText(e.target.value)} {...entityTemplateData}>
         {isLoading ? <Progress center /> : listItems}
         {isFetchingNextPage && fetchingNewPageProgress}
       </EntitiesViewTemplate>

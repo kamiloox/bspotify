@@ -6,9 +6,14 @@ import useRecommendations from './useRecommendations/useRecommendations';
 import IconButton from '../../components/molecules/IconButton/IconButton';
 import Typography from '../../components/atoms/Typography/Typography';
 import Progress from '../../components/atoms/Progress/Progress';
+import { useLocation } from 'react-router-dom';
+import { SelectedEntitesType } from '../../utils/types/App';
 
 const AppPlayer = () => {
-  const { isLoading, playersJSX, savedTrackUris, acceptTrack, rejectTrack } = useRecommendations();
+  const location = useLocation();
+  const { selected } = location.state as { selected: SelectedEntitesType };
+  const { isLoading, playersJSX, savedTrackUris, acceptTrack, rejectTrack } =
+    useRecommendations(selected);
 
   if (isLoading)
     return (
@@ -18,7 +23,7 @@ const AppPlayer = () => {
     );
 
   return (
-    <AppPlayerWrapper>
+    <AppPlayerWrapper selected={selected}>
       <MainTemplate css={templateCss} padding="20px">
         <InfoWrapper>
           <Typography size="s">

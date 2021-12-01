@@ -3,9 +3,10 @@ import useGestures, { Direction } from './useGestures/useGestures';
 import MusicPlayer from '../../../components/organisms/MusicPlayer/MusicPlayer';
 import useRecommendationsQuery from './useRecommendationsQuery/useRecommendationsQuery';
 import { Track } from '../../../utils/types/Track';
+import { SelectedEntitesType } from '../../../utils/types/App';
 
-const useRecommendations = () => {
-  const query = useRecommendationsQuery();
+const useRecommendations = (selected: SelectedEntitesType) => {
+  const query = useRecommendationsQuery(selected);
   const [savedTrackUris, setSavedTrackUris] = useState<string[]>([]);
   const [itemsToRender, setItemsToRender] = useState<Track[]>([]);
 
@@ -20,7 +21,7 @@ const useRecommendations = () => {
     if (lastTrack && direction === 'right') setSavedTrackUris([...savedTrackUris, lastTrack.uri]);
     setItemsToRender(itemsToRenderCopy);
 
-    const shouldFetchNewRecommendations = itemsToRender.length < 4;
+    const shouldFetchNewRecommendations = itemsToRender.length < 6;
     if (shouldFetchNewRecommendations) query.fetchNextPage();
   };
 

@@ -1,18 +1,19 @@
 import { ReactChild, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useAppContext } from '../../../contexts/AppContext/AppContext';
 import { useToastContext } from '../../../contexts/ToastContext/ToastContext';
+import { getArrayDictLength } from '../../../utils/helpers/helpers';
 import routes from '../../../utils/routes/routes';
+import { SelectedEntitesType } from '../../../utils/types/App';
 
 interface AppPlayerWrapperProps {
   children: ReactChild;
+  selected: SelectedEntitesType;
 }
 
-const AppPlayerWrapper = ({ children }: AppPlayerWrapperProps) => {
-  const { getSelectedEntitiesLength } = useAppContext();
+const AppPlayerWrapper = ({ children, selected }: AppPlayerWrapperProps) => {
   const { showToast } = useToastContext();
 
-  const canRedirectToPlayer = getSelectedEntitiesLength() > 0;
+  const canRedirectToPlayer = getArrayDictLength(selected) > 0;
   useEffect(() => {
     if (!canRedirectToPlayer)
       showToast("Can't open player, select at least one artist or track", 'error');

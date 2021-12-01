@@ -40,3 +40,9 @@ export const spotifyToBackendUrl = (argUrl: string | null) => {
   }
   return newUrl;
 };
+
+export const getArrayDictLength = (dict: { [key: string]: any[] }) => {
+  return Object.values(dict)
+    .map(({ length }) => length)
+    .reduce((a, b) => a + b, 0);
+};
