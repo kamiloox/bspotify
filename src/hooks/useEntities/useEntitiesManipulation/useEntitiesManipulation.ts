@@ -35,6 +35,7 @@ const useEntitiesManipulation = (steps: EntityType[]) => {
   const submitChoices = () => {
     const canSubmit = getSelectedLength() > 0;
     if (canSubmit) history.push(routes.appPlayer.path, { selected });
+    else showToast('Select at least one track or artist to go further');
   };
 
   const handleItemClick = (id: string) => {

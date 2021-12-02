@@ -5,27 +5,18 @@ import MainTemplate from '../../components/templates/MainTemplate/MainTemplate';
 import useRecommendations from './useRecommendations/useRecommendations';
 import IconButton from '../../components/molecules/IconButton/IconButton';
 import Typography from '../../components/atoms/Typography/Typography';
-import Progress from '../../components/atoms/Progress/Progress';
 import { useLocation } from 'react-router-dom';
 import { SelectedEntitesType } from '../../utils/types/App';
 
 const AppPlayer = () => {
   const location = useLocation();
   const locationState = location.state as { selected: SelectedEntitesType | undefined };
-  const { isLoading, playersJSX, savedTrackUris, acceptTrack, rejectTrack } = useRecommendations(
-    locationState?.selected
-  );
-
-  if (isLoading)
-    return (
-      <MainTemplate>
-        <Progress center />
-      </MainTemplate>
-    );
+  const { isLoading, playersJSX, savedTrackUris, acceptTrack, rejectTrack, submitChoices } =
+    useRecommendations(locationState?.selected);
 
   return (
-    <AppPlayerWrapper selected={locationState?.selected}>
-      <MainTemplate css={templateCss} padding="20px">
+    <MainTemplate css={templateCss} padding="20px">
+      <AppPlayerWrapper selected={locationState?.selected} isLoading={isLoading}>
         <InfoWrapper>
           <Typography size="s">
             recommending songs{' '}
@@ -46,15 +37,15 @@ const AppPlayer = () => {
           <IconButton color="error" onClick={rejectTrack}>
             <XLg size={32} />
           </IconButton>
-          <IconButton small>
+          <IconButton small onClick={submitChoices}>
             <CheckAll size={24} />
           </IconButton>
           <IconButton color="success" onClick={acceptTrack}>
             <HeartFill size={32} />
           </IconButton>
         </ButtonsWrapper>
-      </MainTemplate>
-    </AppPlayerWrapper>
+      </AppPlayerWrapper>
+    </MainTemplate>
   );
 };
 

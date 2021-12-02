@@ -10,8 +10,8 @@ type DataToProps = ListItemProps & { key: string };
 
 const useEntities = (steps: EntityType[], searchText: string = '') => {
   let data: DataToProps[] = [];
-  const entityTemplateData = useEntitiesManipulation(steps);
-  const { currentStep, selected, handleItemClick } = entityTemplateData;
+  const entitiesOrganizerData = useEntitiesManipulation(steps);
+  const { currentStep, selected, handleItemClick } = entitiesOrganizerData;
   const query = useEntitiesQuery(currentStep);
   const response = query.data;
 
@@ -40,7 +40,7 @@ const useEntities = (steps: EntityType[], searchText: string = '') => {
     }));
   }
 
-  return { ...query, data, entityTemplateData };
+  return { ...query, data, entitiesOrganizerData };
 };
 
 export default useEntities;

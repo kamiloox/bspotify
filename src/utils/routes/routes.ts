@@ -30,6 +30,10 @@ const routes = {
     path: '/entities/existing',
     public: false,
   },
+  savedTracks: {
+    path: '/saved-tracks',
+    public: false,
+  },
 };
 
 export default routes;

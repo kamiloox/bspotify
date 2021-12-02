@@ -4,11 +4,16 @@ import MusicPlayer from '../../../components/organisms/MusicPlayer/MusicPlayer';
 import useRecommendationsQuery from './useRecommendationsQuery/useRecommendationsQuery';
 import { Track } from '../../../utils/types/Track';
 import { SelectedEntitesType } from '../../../utils/types/App';
+import { useHistory } from 'react-router-dom';
+import routes from '../../../utils/routes/routes';
+import { useToastContext } from '../../../contexts/ToastContext/ToastContext';
 
 const useRecommendations = (selected: SelectedEntitesType | undefined) => {
   const query = useRecommendationsQuery(selected);
   const [savedTrackUris, setSavedTrackUris] = useState<string[]>([]);
   const [itemsToRender, setItemsToRender] = useState<Track[]>([]);
+  const { showToast } = useToastContext();
+  const history = useHistory();
 
   useEffect(() => {
     if (query.data)
@@ -36,6 +41,12 @@ const useRecommendations = (selected: SelectedEntitesType | undefined) => {
 
   const rejectTrack = () => moveTrackAndUpdateData('left');
 
+  const submitChoices = () => {
+    const isSavedAtLeastOne = savedTrackUris.length > 0;
+    if (isSavedAtLeastOne) history.push(routes.savedTracks.path, { savedTrackUris });
+    else showToast('Please save at least one track', 'warning');
+  };
+
   const playersJSX = itemsToRender
     .filter(({ preview_url }) => !!preview_url)
     .map(({ id, artists, preview_url, album, name }, index) => (
@@ -51,7 +62,7 @@ const useRecommendations = (selected: SelectedEntitesType | undefined) => {
       />
     ));
 
-  return { ...query, playersJSX, savedTrackUris, acceptTrack, rejectTrack };
+  return { ...query, playersJSX, savedTrackUris, acceptTrack, rejectTrack, submitChoices };
 };
 
 export default useRecommendations;

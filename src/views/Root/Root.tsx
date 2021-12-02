@@ -11,6 +11,7 @@ const Home = lazy(() => import('../Home/Home'));
 const NotFound404 = lazy(() => import('../NotFound404/NotFound404'));
 const EntitiesTop = lazy(() => import('../EntitiesTop/EntitiesTop'));
 const AppPlayer = lazy(() => import('../AppPlayer/AppPlayer'));
+const SavedTracks = lazy(() => import('../SavedTracks/SavedTracks'));
 
 const suspenseFallback = (
   <MainTemplate>
@@ -39,6 +40,9 @@ const Root = () => (
             <MainTemplate>
               <Typography>Feature currently unavailable</Typography>
             </MainTemplate>
+          </ProtectedRoute>
+          <ProtectedRoute path={routes.savedTracks.path}>
+            <SavedTracks />
           </ProtectedRoute>
           <Route path="*">
             <NotFound404 />
