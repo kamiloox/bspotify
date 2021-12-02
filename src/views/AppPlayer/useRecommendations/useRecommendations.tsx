@@ -5,7 +5,7 @@ import useRecommendationsQuery from './useRecommendationsQuery/useRecommendation
 import { Track } from '../../../utils/types/Track';
 import { SelectedEntitesType } from '../../../utils/types/App';
 
-const useRecommendations = (selected: SelectedEntitesType) => {
+const useRecommendations = (selected: SelectedEntitesType | undefined) => {
   const query = useRecommendationsQuery(selected);
   const [savedTrackUris, setSavedTrackUris] = useState<string[]>([]);
   const [itemsToRender, setItemsToRender] = useState<Track[]>([]);

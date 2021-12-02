@@ -7,13 +7,13 @@ import { SelectedEntitesType } from '../../../utils/types/App';
 
 interface AppPlayerWrapperProps {
   children: ReactChild;
-  selected: SelectedEntitesType;
+  selected: SelectedEntitesType | undefined;
 }
 
 const AppPlayerWrapper = ({ children, selected }: AppPlayerWrapperProps) => {
   const { showToast } = useToastContext();
 
-  const canRedirectToPlayer = getArrayDictLength(selected) > 0;
+  const canRedirectToPlayer = selected ? getArrayDictLength(selected) > 0 : false;
   useEffect(() => {
     if (!canRedirectToPlayer)
       showToast("Can't open player, select at least one artist or track", 'error');

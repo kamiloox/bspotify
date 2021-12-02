@@ -20,7 +20,7 @@ const useEntitiesManipulation = (steps: EntityType[]) => {
     else showToast("You can't choose more than 5 tracks and artists in total");
   };
 
-  const removeItem = (id: string) => dispatch({ type: 'ADD_ITEM', payload: { id } });
+  const removeItem = (id: string) => dispatch({ type: 'REMOVE_ITEM', payload: { id } });
 
   const goNext = () => {
     const isAllowed = steps.length > steps.indexOf(currentStep) + 1;
