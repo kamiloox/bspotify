@@ -1,8 +1,16 @@
+import styled from 'styled-components';
 import { ReactNode, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useToastContext } from '../../../contexts/ToastContext/ToastContext';
 import Progress from '../../../components/atoms/Progress/Progress';
 import routes from '../../../utils/routes/routes';
+
+const Wrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+`;
 
 interface SavedTracksWrapperProps {
   children: ReactNode;
@@ -22,7 +30,7 @@ const SavedTracksWrapper = ({ children, tracksData, isLoading }: SavedTracksWrap
 
   if (shouldRedirect) return <Redirect to={routes.features.path} />;
 
-  return <>{children}</>;
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default SavedTracksWrapper;

@@ -21,6 +21,19 @@ const useRecommendationsQuery = (selected: SelectedEntitesType | undefined) => {
     refetchOnWindowFocus: false,
     getNextPageParam: () => url,
     enabled: selected ? getArrayDictLength(selected) > 0 : false,
+    select: ({ pages, pageParams }) => {
+      const occuredTrackIds: string[] = [];
+      const newPages = pages.map((page) =>
+        page.filter(({ id }) => {
+          occuredTrackIds.push(id);
+          const occurredTrackIdsCopy = [...occuredTrackIds];
+          occurredTrackIdsCopy.pop();
+          if (!occurredTrackIdsCopy.includes(id)) return true;
+          return false;
+        })
+      );
+      return { pages: newPages, pageParams };
+    },
   });
 
   return query;
