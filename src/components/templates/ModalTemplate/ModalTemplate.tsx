@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { X } from '@styled-icons/bootstrap';
-import { Wrapper, InnerWrapper, Header, ContentWrapper, DarkBackground } from './styles';
-import Typography from '../../atoms/Typography/Typography';
+import { Wrapper, Header, DarkBackground, Title } from './styles';
 import { useTransition } from '@react-spring/core';
 import IconButton from '../../molecules/IconButton/IconButton';
 
@@ -14,9 +13,9 @@ interface ModalTemplateProps {
 
 const ModalTemplate = ({ children, title, isVisible, onClose }: ModalTemplateProps) => {
   const transitions = useTransition(isVisible, {
-    from: { opacity: 0, y: -300 },
-    enter: { opacity: 1, y: 0 },
-    leave: { opacity: 0, y: -300 },
+    from: { opacity: 0, y: '-25%' },
+    enter: { opacity: 1, y: '-50%' },
+    leave: { opacity: 0, y: '25%' },
   });
 
   return transitions(
@@ -24,16 +23,14 @@ const ModalTemplate = ({ children, title, isVisible, onClose }: ModalTemplatePro
       item && (
         <>
           <DarkBackground style={{ opacity }} />
-          <Wrapper>
-            <InnerWrapper style={{ y, opacity, x: '-50%' }}>
-              <Header>
-                <Typography>{title}</Typography>
-                <IconButton onClick={onClose} small fitToContent>
-                  <X size={32} />
-                </IconButton>
-              </Header>
-              <ContentWrapper>{children}</ContentWrapper>
-            </InnerWrapper>
+          <Wrapper style={{ y, opacity, x: '-50%' }}>
+            <Header>
+              <Title>{title}</Title>
+              <IconButton onClick={onClose} small fitToContent>
+                <X size={32} />
+              </IconButton>
+            </Header>
+            {children}
           </Wrapper>
         </>
       )

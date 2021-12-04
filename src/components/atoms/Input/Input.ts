@@ -6,7 +6,7 @@ const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.color.darkGray};
   box-shadow: 0px 2px 4px ${({ theme }) => hexToRGB(theme.color.black, 0.25)};
   border-radius: 4px;
-  padding: 10px;
+  padding: 8px;
   font-family: inherit;
 `;
 

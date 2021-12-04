@@ -5,6 +5,7 @@ import List from '../../molecules/List/List';
 import IconButton from '../../molecules/IconButton/IconButton';
 import TextField from '../../molecules/TextField/TextField';
 import Button from '../../atoms/Button/Button';
+import searchIcon from '../../../assets/searchIcon.svg';
 
 interface EntitiesOrganizerProps {
   children: ReactNode;
@@ -24,7 +25,7 @@ const EntitiesOrganizer = ({
   onSearch,
 }: EntitiesOrganizerProps) => (
   <Wrapper>
-    <TextField id="search" onChange={onSearch} label={`Search ${currentStep}`} />
+    <TextField id="search" onChange={onSearch} label={`Search ${currentStep}`} iconSrc={searchIcon} />
     <List>{children}</List>
     <BottomButtonsWrapper>
       <IconButton small onClick={goBack}>
