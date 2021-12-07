@@ -10,7 +10,7 @@ import useSavedTracks from './useSavedTracks/useSavedTracks';
 
 const SavedTracks = () => {
   const { tracksData, isLoading } = useSavedTracks();
-  const { modalContent, isModalVisible, modalTitle, closeModal, showModal } = useModalData();
+  const { modalContent, isModalVisible, modalTitle, closeModal, showModal } = useModalData(tracksData);
 
   const listItems = tracksData.map((track) => (
     <ListItem

@@ -2,6 +2,9 @@ import { useState, ChangeEvent, MouseEvent } from 'react';
 import styled from 'styled-components';
 import Button from '../../../components/atoms/Button/Button';
 import TextField, { TextFieldStatus } from '../../../components/molecules/TextField/TextField';
+import useAddItemsToPlaylist from '../../../hooks/useAddItemsToPlaylist/useAddItemsToPlaylist';
+import useCreatePlaylist from '../../../hooks/useCreatePlaylist/useCreatePlaylist';
+import { Track } from '../../../utils/types/Track';
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -16,13 +19,16 @@ const titles = {
   secondStep: 'Name your new playlist.',
 };
 
-const useModalData = () => {
+const useModalData = (tracksData: Track[]) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isVisibleNextModalStep, setIsVisibleNextModalStep] = useState(false);
   const [modalTitle, setModalTitle] = useState(titles.firstStep);
 
   const [playlistName, setPlaylistName] = useState('');
   const [playlistNameStatus, setPlaylistNameStatus] = useState<TextFieldStatus>();
+
+  const createPlaylistMutation = useCreatePlaylist();
+  const addItemsMutation = useAddItemsToPlaylist();
 
   const closeModal = () => {
     setIsModalVisible(false);
@@ -46,9 +52,19 @@ const useModalData = () => {
     setPlaylistName(e.target.value);
   };
 
-  const handleCreatePlaylist = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleCreatePlaylist = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('submitted');
+
+    const playlist = await createPlaylistMutation.mutateAsync({
+      name: playlistName,
+    });
+
+    const { snapshot_id }: { snapshot_id: string } = await addItemsMutation.mutateAsync({
+      playlistId: playlist.id,
+      uris: tracksData.map(({ uri }) => uri),
+    });
+
+    console.log(snapshot_id);
   };
 
   const firstStep = (
@@ -84,7 +100,7 @@ const useModalData = () => {
 
   const modalContent = isVisibleNextModalStep ? secondStep : firstStep;
 
-  return { modalContent, isModalVisible, modalTitle, closeModal, showModal };
+  return { modalContent, isModalVisible, modalTitle, playlistName, closeModal, showModal };
 };
 
 export default useModalData;
