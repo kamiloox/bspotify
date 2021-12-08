@@ -21,7 +21,7 @@ const templateCss = css`
 
 const steps = ['tracks', 'artists'] as const;
 
-const EntitiesTop = () => {
+const TopItems = () => {
   const { showToast } = useToastContext();
   const history = useHistory();
   const [searchText, setSearchText] = useState('');
@@ -98,4 +98,4 @@ const EntitiesTop = () => {
   );
 };
 
-export default EntitiesTop;
+export default TopItems;

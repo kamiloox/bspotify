@@ -12,7 +12,7 @@ export const InfoWrapper = styled.div`
   line-height: 140%;
 `;
 
-export const InnerWrapperPlayer = styled.div`
+export const PlayersWrapper = styled.div`
   display: grid;
 
   & > * {
