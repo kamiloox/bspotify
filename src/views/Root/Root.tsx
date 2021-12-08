@@ -9,7 +9,7 @@ import Typography from '../../components/atoms/Typography/Typography';
 const Features = lazy(() => import('../Features/Features'));
 const Home = lazy(() => import('../Home/Home'));
 const NotFound404 = lazy(() => import('../NotFound404/NotFound404'));
-const EntitiesTop = lazy(() => import('../EntitiesTop/EntitiesTop'));
+const TopItems = lazy(() => import('../TopItems/TopItems'));
 const AppPlayer = lazy(() => import('../AppPlayer/AppPlayer'));
 const SavedTracks = lazy(() => import('../SavedTracks/SavedTracks'));
 
@@ -33,10 +33,10 @@ const Root = () => (
           <ProtectedRoute path={routes.appPlayer.path}>
             <AppPlayer />
           </ProtectedRoute>
-          <ProtectedRoute path={routes.entitiesTop.path}>
-            <EntitiesTop />
+          <ProtectedRoute path={routes.topItems.path}>
+            <TopItems />
           </ProtectedRoute>
-          <ProtectedRoute path={[routes.entitiesExisting.path, routes.entitiesSearch.path]}>
+          <ProtectedRoute path={[routes.existingPlaylists.path, routes.searchItems.path]}>
             <MainTemplate>
               <Typography>Feature currently unavailable</Typography>
             </MainTemplate>

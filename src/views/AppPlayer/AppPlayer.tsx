@@ -10,13 +10,13 @@ import { SelectedEntitesType } from '../../utils/types/App';
 
 const AppPlayer = () => {
   const location = useLocation();
-  const locationState = location.state as { selected: SelectedEntitesType | undefined };
+  const locationState = location.state as { selectedIds: SelectedEntitesType | undefined };
   const { isLoading, playersJSX, savedTrackUris, acceptTrack, rejectTrack, submitChoices } =
-    useRecommendations(locationState?.selected);
+    useRecommendations(locationState?.selectedIds);
 
   return (
     <MainTemplate css={templateCss} padding="20px">
-      <AppPlayerWrapper selected={locationState?.selected} isLoading={isLoading}>
+      <AppPlayerWrapper selected={locationState?.selectedIds} isLoading={isLoading}>
         <InfoWrapper>
           <Typography size="s">
             recommending songs{' '}

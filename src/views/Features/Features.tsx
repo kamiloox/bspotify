@@ -24,11 +24,11 @@ const Features = () => (
     <ContentWrapper>
       <Typography>Select one of available options</Typography>
       <OptionsWrapper>
-        <LinkOption to={routes.entitiesTop.path}>Based on your top artists and tracks</LinkOption>
-        <LinkOption to={routes.entitiesSearch.path}>
+        <LinkOption to={routes.topItems.path}>Based on your top artists and tracks</LinkOption>
+        <LinkOption to={routes.searchItems.path}>
           Choose genre or artist you're intereseted in
         </LinkOption>
-        <LinkOption to={routes.entitiesExisting.path}>Update your existing playlist</LinkOption>
+        <LinkOption to={routes.existingPlaylists.path}>Update your existing playlist</LinkOption>
       </OptionsWrapper>
     </ContentWrapper>
   </MainTemplate>

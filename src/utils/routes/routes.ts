@@ -15,19 +15,19 @@ const routes = {
     path: '/app-player',
     public: false,
   },
-  // Select entities from top user artists, tracks and genres
-  entitiesTop: {
-    path: '/entities/top',
+  // Select items from top user artists, tracks
+  topItems: {
+    path: '/top',
     public: false,
   },
-  // Search entities for new playlist
-  entitiesSearch: {
-    path: '/entities/search',
+  // Search items for new playlist
+  searchItems: {
+    path: '/search',
     public: false,
   },
-  // Select entities for existing playlist
-  entitiesExisting: {
-    path: '/entities/existing',
+  // Select items for existing playlist
+  existingPlaylists: {
+    path: '/existing',
     public: false,
   },
   savedTracks: {

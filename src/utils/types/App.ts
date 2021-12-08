@@ -9,3 +9,7 @@ export type QueryReturnEntityType<T extends EntityType> = T extends 'artists'
   : UserTopItems<Track>;
 
 export type SelectedEntitesType = { [k in EntityType]: string[] };
+
+export type SelectedIdsType = { tracks: string[]; artists: string[] };
+
+export type Step = 'artists' | 'tracks';
