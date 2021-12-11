@@ -40,9 +40,8 @@ const SavedTracks = () => {
         playlistId: playlist.id,
         uris: tracks.map(({ uri }) => uri),
       });
-      if (snapshot_id) {
-        showToast("Success, you're playlist has been saved. Check on spotify app", 'success');
-      }
+      if (snapshot_id)
+        showToast("Success, you're playlist has been saved. Check it on spotify app", 'success');
     } catch (err) {
       showToast("Ooops, we're sorry. Something went wrong", 'error');
     } finally {
@@ -50,7 +49,9 @@ const SavedTracks = () => {
     }
   };
 
-  const handlePushToExistingPlaylist = () => {}; // TODO
+  const handlePushToExistingPlaylist = () => {
+    history.push(routes.userPlaylists.path, { savedTracksUris: tracks.map(({ uri }) => uri) });
+  };
 
   const shouldRedirect = tracks.length === 0 && !isLoading;
   useEffect(() => {

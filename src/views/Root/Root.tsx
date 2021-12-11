@@ -12,6 +12,7 @@ const NotFound404 = lazy(() => import('../NotFound404/NotFound404'));
 const TopItems = lazy(() => import('../TopItems/TopItems'));
 const AppPlayer = lazy(() => import('../AppPlayer/AppPlayer'));
 const SavedTracks = lazy(() => import('../SavedTracks/SavedTracks'));
+const UserPlaylists = lazy(() => import('../UserPlaylists/UserPlaylists'));
 
 const suspenseFallback = (
   <MainTemplate>
@@ -43,6 +44,9 @@ const Root = () => (
           </ProtectedRoute>
           <ProtectedRoute path={routes.savedTracks.path}>
             <SavedTracks />
+          </ProtectedRoute>
+          <ProtectedRoute path={routes.userPlaylists.path}>
+            <UserPlaylists />
           </ProtectedRoute>
           <Route path="*">
             <NotFound404 />

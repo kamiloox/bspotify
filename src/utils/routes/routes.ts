@@ -34,6 +34,10 @@ const routes = {
     path: '/saved-tracks',
     public: false,
   },
+  userPlaylists: {
+    path: '/playlists',
+    public: false,
+  },
 };
 
 export default routes;

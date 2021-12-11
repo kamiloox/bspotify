@@ -13,7 +13,7 @@ export interface Playlist {
   id: string;
   images: Image[];
   name: string;
-  owners: CurrentUserProfile;
+  owner: CurrentUserProfile;
   public: boolean;
   snapshotId: string;
   tracks: {
