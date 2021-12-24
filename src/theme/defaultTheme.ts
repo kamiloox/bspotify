@@ -24,4 +24,10 @@ export const defaultTheme: DefaultTheme = {
     medium: '500',
     bold: '700',
   },
+  breakpoint: {
+    mobile: '(min-width: 375px)',
+    tabletPort: '(min-width: 768px)',
+    tabletLand: '(min-width: 1024px)',
+    largeScreen: '(min-width: 1920px)',
+  },
 };

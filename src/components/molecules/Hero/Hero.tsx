@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import useAnimatedStyles, { animated } from './useAnimatedStyles';
 
 const Svg = styled.svg`
+  max-width: 768px;
+  display: block;
+  margin: 50px auto;
   * {
     transform-box: fill-box;
   }

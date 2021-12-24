@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Spotify } from '@styled-icons/boxicons-logos';
 import { useUserContext } from '../../contexts/UserContext/UserContext';
@@ -17,6 +17,13 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
+const templateCss = css`
+  @media ${({ theme }) => theme.breakpoint.tabletLand} {
+    text-align: center;
+    margin: 20px 0;
+  }
+`;
+
 const Home = () => {
   const { isAuthenticated } = useUserContext();
   const history = useHistory();
@@ -27,7 +34,7 @@ const Home = () => {
   };
 
   return (
-    <MainTemplate padding="40px">
+    <MainTemplate padding="40px" css={templateCss}>
       <Hero />
       <Typography size="l" as="span" italic underlined>
         We extend

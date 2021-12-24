@@ -1,17 +1,22 @@
 import { createRef, ReactNode, useEffect, useRef } from 'react';
-import styled, { FlattenSimpleInterpolation } from 'styled-components';
+import styled, { FlattenInterpolation, ThemeProps, DefaultTheme } from 'styled-components';
 import Header from '../../organisms/Header/Header';
 
 interface ContentWrapperProps {
   padding?: string;
   viewportHeight?: boolean;
-  css?: FlattenSimpleInterpolation;
+  css?: FlattenInterpolation<ThemeProps<DefaultTheme>>;
 }
 
 const ContentWrapper = styled.div<ContentWrapperProps>`
   padding: ${({ padding = '30px 20px' }) => padding};
   overflow-y: ${({ viewportHeight }) => (viewportHeight ? 'hidden' : 'auto')};
   ${(props) => (props.css ? props.css : '')};
+  max-width: 1200px;
+
+  @media ${({ theme }) => theme.breakpoint.tabletLand} {
+    margin: 0 auto;
+  }
 `;
 
 interface MainTemplateProps extends ContentWrapperProps {

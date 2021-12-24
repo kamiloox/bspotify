@@ -4,8 +4,7 @@ import { hexToRGB } from '../../../utils/helpers/helpers';
 
 export const Wrapper = styled.div`
   position: relative;
-  height: 300px;
-  width: 300px;
+  max-width: 800px;
   border-radius: 20px;
   overflow: hidden;
   z-index: 1;

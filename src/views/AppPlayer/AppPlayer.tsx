@@ -89,9 +89,9 @@ const AppPlayer = () => {
               key={id}
               title={name}
               artist={artists.map(({ name }) => name).join(', ')}
-              audioSrc={preview_url as string}
+              audioSrc={preview_url ?? ''}
               imgSrc={album.images[0].url}
-              focusable={tracksToRender.length === index + 1 ? true : false}
+              focusable={tracksToRender.length === index + 1}
               style={{ touchAction: 'none', ...springsStyle[index] }}
               {...bind(index)}
             />

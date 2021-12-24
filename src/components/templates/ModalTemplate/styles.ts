@@ -14,6 +14,7 @@ export const DarkBackground = styled(animated.div)`
 
 export const Wrapper = styled(animated.div)`
   background-color: ${({ theme }) => theme.color.white};
+  max-width: 1200px;
   position: fixed;
   left: 50%;
   top: 50%;

@@ -25,5 +25,11 @@ declare module 'styled-components' {
       medium: string;
       bold: string;
     };
+    breakpoint: {
+      mobile: string;
+      tabletPort: string;
+      tabletLand: string;
+      largeScreen: string;
+    };
   }
 }

@@ -6,6 +6,10 @@ export const Image = styled.img`
   filter: brightness(50%);
   border-radius: 0 0 30px 30px;
   box-shadow: 0px 4px 4px ${({ theme }) => hexToRGB(theme.color.black, 0.25)};
+
+  @media ${({ theme }) => theme.breakpoint.tabletLand} {
+    border-radius: 0;
+  }
 `;
 
 export const HeroWrapper = styled.div`

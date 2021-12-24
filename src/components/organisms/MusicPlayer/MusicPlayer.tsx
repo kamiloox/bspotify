@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { animated } from 'react-spring';
+import { animated, AnimatedComponent } from 'react-spring';
 import { ReactDOMAttributes } from '@use-gesture/core/types';
 import { Wrapper, RotatedIconButton, PauseFill, PlayFill } from './styles';
 import AlbumCover from '../../molecules/AlbumCover/AlbumCover';
@@ -23,7 +23,7 @@ const MusicPlayer = ({
   focusable = false,
   ...rest
 }: MusicPlayerProps) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const MusicPlayer = ({
         </AlbumCover>
       </animated.div>
       <animated.div style={style}>
-        <AudioWave maxWidth={280} audioRef={audioRef} focusable={focusable} />
+        <AudioWave maxWidth={300} audioRef={audioRef} focusable={focusable} />
       </animated.div>
     </Wrapper>
   );

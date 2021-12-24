@@ -12,6 +12,8 @@ interface WrapperProps {
   rounded?: boolean;
 }
 
+const HamburgerWrapper = styled.div``;
+
 const Wrapper = styled.header<WrapperProps>`
   background-color: ${({ theme }) => theme.color.black};
   box-shadow: 0px 4px 4px ${({ theme }) => hexToRGB(theme.color.black, 0.25)};
@@ -26,6 +28,12 @@ const Wrapper = styled.header<WrapperProps>`
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
+
+  @media ${({ theme }) => theme.breakpoint.tabletLand} {
+    & > ${HamburgerWrapper} {
+      display: none;
+    }
+  }
 `;
 
 interface HeaderProps extends WrapperProps {}
@@ -48,7 +56,9 @@ const Header = forwardRef<HTMLElement, HeaderProps>(({ rounded }: HeaderProps, r
   return (
     <Wrapper rounded={rounded} ref={ref}>
       {ProfilePictureOrLogo}
-      <HamburgerButton onClick={() => setIsMenuActive(!isMenuActive)} isActive={isMenuActive} />
+      <HamburgerWrapper>
+        <HamburgerButton onClick={() => setIsMenuActive(!isMenuActive)} isActive={isMenuActive} />
+      </HamburgerWrapper>
       <Navigation isVisible={isMenuActive} />
     </Wrapper>
   );
